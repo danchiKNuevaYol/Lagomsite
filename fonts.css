@@ -1,0 +1,20 @@
+/* ШРИФТЫ — подключение и роли меняйте в этом файле. */
+@import url("https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,200..900&family=Golos+Text:wght@400;500;600&display=swap");
+
+/* Для локального шрифта положите .woff2 в папку fonts и раскомментируйте:
+@font-face {
+  font-family: "MyFont";
+  src: url("fonts/MyFont.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+*/
+:root {
+  --font-display: "Literata", Georgia, serif; /* слово первого экрана и заголовки */
+  --font-body: "Literata", Georgia, serif; /* основной текст */
+  --font-ui: "Golos Text", system-ui, sans-serif; /* кнопки, подписи, фразы */
+  --serif: var(--font-body);
+  --sans: var(--font-ui);
+  --fs-hero: clamp(40px, 12vw, 190px);
+  --fs-section: clamp(30px, 5vw, 60px);
+}

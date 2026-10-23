@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Кто определяет меру? Веб-плакат (макет)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Golos+Text:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--
+    МАКЕТ. Серые полосы внутри блоков с классом .tx — места под текст.
+    Чтобы вставить текст: удалите содержимое блока и напишите <p>...</p>.
+    Подпись-метка (data-label) пропадёт сама, когда уберёте атрибут.
+    Цифра 7 (диск) переезжает между блоками .anchor [data-disc].
+  -->
+
+  <!-- Угловые подписи и линейка -->
+  <p class="corner" aria-hidden="true">Кто определяет меру?</p>
+  <p class="corner-r" id="rl" aria-hidden="true"></p>
+  <nav class="ruler" id="ruler" aria-hidden="true"><em id="mk"></em></nav>
+
+  <!-- Сквозной предмет: одно число, разные смыслы -->
+  <div class="disc" id="disc" aria-hidden="true"><b>7</b></div>
+
+  <!-- 1. LAGOM: титул → шум обещаний → «Достаточно!» (единственная тёмная зона) -->
+  <header class="hero" id="z0" data-name="Lagom">
+    <div class="stage" id="stage">
+
+      <div class="beat title" id="beatTitle">
+        <h1 class="t-display">Кто определяет меру?</h1>
+        <div class="title-foot">
+          <p class="t-cap by">Имя Фамилия<br>Веб-публикация. Рабочее название</p>
+          <div class="tx t-body promise" data-words="22" data-label="Обещание читателю, 1–2 фразы"></div>
+        </div>
+        <span class="anchor a-title" data-disc data-at="0"></span>
+      </div>
+
+      <div class="scene" id="scene" aria-hidden="true"><div class="world" id="world"></div></div>
+
+      <h2 class="cutword" id="cutword">Достаточно!</h2>
+
+      <span class="anchor a-noise" data-disc data-at=".5"></span>
+      <span class="anchor a-cut" data-disc data-at=".92"></span>
+
+      <button class="pause" id="pause" type="button" aria-pressed="false">Остановить движение</button>
+      <p class="t-cap src-cap" id="srcCap">Фрагменты: [источник] · [дата] · [ссылка]</p>
+      <p class="t-cap hint" id="hint">Прокрутите вниз</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 2. Откуда взялось «Достаточно» -->
+    <section class="zone" id="z1" data-name="Откуда «Достаточно»">
+      <div class="inner">
+        <h2 class="t-display drift" data-speed="-.05">Откуда<br>взялось<br>«Достаточно»</h2>
+
+        <div class="g12">
+          <div class="tx t-body lead" data-words="54" data-label="Вводный текст, около 50 слов"><span class="anchor wrap" data-disc></span></div>
+        </div>
+
+        <div class="src-list">
+          <article class="src-row">
+            <div class="meta">
+              <p class="t-cap"><b>Visit Sweden</b><br>«What Is Lagom?»</p>
+              <p class="t-cap soft">Ссылка · дата обращения</p>
+            </div>
+            <div class="q"><blockquote class="tx t-quote" data-words="26" data-label="Цитата. Оригинал отдельно от перевода"></blockquote></div>
+            <dl class="four an">
+              <dt>Как определяется lagom</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>Какое изменение обещается</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>К какому читателю обращаются</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>Какие условия предполагаются</dt><dd class="tx t-body" data-words="8"></dd>
+            </dl>
+          </article>
+
+          <article class="src-row">
+            <div class="meta">
+              <p class="t-cap"><b>Ники Брантмарк</b><br>«Что такое лагом»</p>
+              <p class="t-cap soft">Издание · страница · ссылка</p>
+            </div>
+            <div class="q"><blockquote class="tx t-quote" data-words="26" data-label="Цитата"></blockquote></div>
+            <dl class="four an">
+              <dt>Как определяется lagom</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>Какое изменение обещается</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>К какому читателю обращаются</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>Какие условия предполагаются</dt><dd class="tx t-body" data-words="8"></dd>
+            </dl>
+          </article>
+
+          <article class="src-row">
+            <div class="meta">
+              <p class="t-cap"><b>Лола А. Экерстрём</b><br>«Lagom. Маленькая книга…»</p>
+              <p class="t-cap soft">Полное название · издание · страница</p>
+            </div>
+            <div class="q"><blockquote class="tx t-quote" data-words="26" data-label="Цитата"></blockquote></div>
+            <dl class="four an">
+              <dt>Как определяется lagom</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>Какое изменение обещается</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>К какому читателю обращаются</dt><dd class="tx t-body" data-words="8"></dd>
+              <dt>Какие условия предполагаются</dt><dd class="tx t-body" data-words="8"></dd>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Кто определяет меру? -->
+    <section class="zone" id="z2" data-name="Кто определяет меру?">
+      <div class="inner">
+        <div class="g12 head">
+          <h2 class="t-title">Кто определяет<br>меру?</h2>
+          <div class="tx t-body intro" data-words="34" data-label="Вступление: умеренность обеспеченного и вынужденная экономия"></div>
+        </div>
+
+        <div class="duo">
+          <section class="set" aria-label="Случай 1">
+            <p class="count t-display">7</p>
+            <p class="t-cap">вещей · случай 1</p>
+            <ul class="icons" data-icons></ul>
+            <button class="btn open" type="button" data-target="condA" aria-expanded="false" aria-controls="condA">Открыть условия</button>
+            <div class="reveal" id="condA"><div>
+              <p class="t-quote">«Я могу покупать больше, но выбираю семь вещей».</p>
+              <p class="t-cap soft">Модель, не интервью</p>
+              <div class="tx t-body" data-words="20" data-label="Условия: бюджет, срок, возможность замены"></div>
+            </div></div>
+          </section>
+
+          <span class="anchor mid" data-disc></span>
+
+          <section class="set" aria-label="Случай 2">
+            <p class="count t-display">7</p>
+            <p class="t-cap">вещей · случай 2</p>
+            <ul class="icons" data-icons></ul>
+            <button class="btn open" type="button" data-target="condB" aria-expanded="false" aria-controls="condB">Открыть условия</button>
+            <div class="reveal" id="condB"><div>
+              <p class="t-quote">«Я хотел бы заменить часть вещей, но сейчас не могу».</p>
+              <p class="t-cap soft">Модель, не интервью</p>
+              <div class="tx t-body" data-words="20" data-label="Условия: бюджет, срок, возможность замены"></div>
+            </div></div>
+          </section>
+        </div>
+
+        <div class="reveal" id="why"><div>
+          <p class="finding">Одинаковое количество вещей не позволяет само по себе судить о свободе выбора.</p>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- 4. Отказ как знак -->
+    <section class="zone" id="z3" data-name="Отказ как знак">
+      <div class="inner">
+        <h2 class="t-display drift" data-speed=".05">Отказ<br>как знак</h2>
+
+        <div class="g12 theory">
+          <blockquote class="tx t-quote big" data-words="32" data-label="Цитата: Бодрийяр или Соколов, рядом с аргументом"></blockquote>
+          <p class="t-cap cite">
+            Ж. Бодрийяр, «Общество потребления»: «Персонализация, или Наименьшее маргинальное различие»; «Метапотребление».<br>
+            <span class="soft">Издание · страница · ссылка</span>
+          </p>
+        </div>
+
+        <div class="g12 details">
+          <figure class="arch a1">
+            <div class="img-slot arch-top"><span class="t-cap">Изображение · кредит</span></div>
+            <figcaption class="t-cap">Одинаковое действие. Случай 1</figcaption>
+          </figure>
+          <figure class="arch a2">
+            <div class="img-slot arch-top"><span class="t-cap">Изображение · кредит</span></div>
+            <figcaption class="t-cap">Одинаковое действие. Случай 2</figcaption>
+          </figure>
+          <div class="comment">
+            <p class="t-cap">Комментарий автора. Авторское прочтение, а не установленный мотив покупателя.</p>
+            <div class="tx t-body" data-words="46"><span class="anchor wrap" data-disc></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Интерактив: число остаётся, условия меняются -->
+    <section class="zone" id="z4" data-name="Гардероб">
+      <div class="inner">
+        <div class="g12 play">
+          <div class="ctl-col">
+            <h2 class="t-title">Соберите условный гардероб</h2>
+            <p class="t-body why">Посмотрите, что меняет возможность заменить вещи. Оставим количество вещей прежним, изменим условия.</p>
+
+            <p class="t-cap label">Сколько вещей вам достаточно на сезон?</p>
+            <div class="group" id="counts" role="group" aria-label="Количество вещей"></div>
+
+            <div id="step2" hidden>
+              <label for="rng" class="t-cap label">Бюджет на одежду на сезон (учебные значения)</label>
+              <input type="range" id="rng" min="0" max="2" step="1" value="1">
+              <div class="steps t-cap" id="st"><span>5 000 ₽</span><span>25 000 ₽</span><span>100 000 ₽</span></div>
+
+              <p class="t-cap label">Можно ли заменить вещи сейчас?</p>
+              <div class="group" id="can" role="group" aria-label="Доступность замены"></div>
+            </div>
+          </div>
+
+          <div class="out-col">
+            <p class="bign t-display" id="bign" aria-live="polite">?</p>
+            <span class="anchor a-out" data-disc></span>
+            <p class="t-cap value" id="val">Выберите количество вещей</p>
+            <div class="result" id="res" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Когда умеренность вправду экономит -->
+    <section class="zone" id="z5" data-name="Когда экономит">
+      <div class="inner">
+        <h2 class="t-title">Когда умеренность<br>вправду экономит</h2>
+
+        <div class="figwrap">
+          <p class="fig t-display drift" data-speed="-.04">−10 000 ₽</p>
+          <span class="anchor a-fig" data-disc></span>
+        </div>
+        <p class="t-cap soft">Учебная модель. Перед показом заменить документированным случаем: реальные суммы, период, результат.</p>
+
+        <dl class="rows">
+          <dt>Условия</dt><dd class="tx t-body" data-words="22"></dd>
+          <dt>Варианты</dt><dd class="tx t-body" data-words="26"></dd>
+          <dt>Результат</dt><dd class="tx t-body" data-words="18"></dd>
+          <dt>Что сохраняется и какие ограничения</dt><dd class="tx t-body" data-words="30"></dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 7. Вопрос из 3 -->
+    <section class="zone" id="z6" data-name="Вопрос">
+      <div class="inner">
+        <div class="finalwrap">
+          <h2 class="t-display">Кто<br>определяет<br>меру?</h2>
+          <span class="anchor a-final" data-disc></span>
+        </div>
+
+        <ul class="qs">
+          <li>Кто выбирает?</li>
+          <li>При каких возможностях?</li>
+          <li>Для какой потребности?</li>
+          <li>Кто предлагает образ достаточности?</li>
+        </ul>
+
+        <div class="tx t-body closing" data-words="30" data-label="Финал: что изменилось в понимании вопроса"></div>
+        <p class="links">
+          <a class="btn" href="#z2">К двум случаям</a>
+          <a class="btn" href="#z4">К условиям выбора</a>
+        </p>
+
+        <div class="credits">
+          <p class="t-cap"><b>Источники</b></p>
+          <ol class="t-cap">
+            <li>Visit Sweden, «What Is Lagom?» <span class="soft">· ссылка · дата обращения</span></li>
+            <li>Н. Брантмарк, «Что такое лагом» <span class="soft">· издание · страница</span></li>
+            <li>Л. А. Экерстрём, «Lagom. Маленькая книга…» <span class="soft">· издание · страница</span></li>
+            <li>Ж. Бодрийяр, «Общество потребления» <span class="soft">· издание · страницы</span></li>
+            <li>М. Соколов о культурном капитале, ПостНаука <span class="soft">· ссылка</span></li>
+          </ol>
+          <p class="t-cap soft">Учебные модели: реплики в зоне 3, бюджеты и расчёты в зонах 5–6. Они не являются интервью или результатами исследования.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
