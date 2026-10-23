@@ -414,8 +414,10 @@ dd.tx {
 
 .src-cap {
   position: absolute;
-  right: var(--gut);
+  left: 0;
+  right: 0;
   bottom: clamp(28px, 6vh, 64px);
+  text-align: center;
   opacity: 0;
   transition: opacity .4s;
 }
