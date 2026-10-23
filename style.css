@@ -335,7 +335,7 @@ dd.tx {
   animation-play-state: paused;
 }
 
-/* Обрыв: «Достаточно!» */
+/* Обрыв: «Достаточно» */
 .cutword {
   position: absolute;
   inset: 0;
@@ -1162,4 +1162,14 @@ input[type=range] {
   .pause {
     transition: none;
   }
+}
+
+/* Реклама Volvo: пометки к цитатам и ссылки */
+.note-q {
+  margin-top: .8em;
+}
+
+.meta a {
+  color: inherit;
+  text-underline-offset: .15em;
 }
