@@ -254,17 +254,22 @@
      ========================================================== */
   var ticking = false;
 
+  function safe(fn, arg) {
+    try { fn(arg); } catch (e) { if (window.console) { console.error(e); } }
+  }
+
   function frame() {
     ticking = false;
     var S = window.scrollY;
 
-    updateProgress(S);
+    // каждый эффект защищён отдельно: сбой одного не останавливает остальные
+    safe(updateProgress, S);
 
     if (RM) { return; }
 
-    updateHero(S);
-    updateDisc(S);
-    updateDrift();
+    safe(updateHero, S);
+    safe(updateDisc, S);
+    safe(updateDrift, S);
   }
 
   function request() {
