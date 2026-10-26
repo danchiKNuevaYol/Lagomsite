@@ -462,7 +462,7 @@ dd.tx {
   font-size: 13px;
 }
 
-.margin p + p {
+.margin p + p, .margin .tx + p {
   margin-top: 1.1em;
 }
 
