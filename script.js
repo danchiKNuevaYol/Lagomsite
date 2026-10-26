@@ -224,44 +224,13 @@
   }
 
   /* ==========================================================
-     6. Линейка и подпись зоны
+     6. Тонкая полоса прогресса
      ========================================================== */
-  var zones = $$("[data-name]");
-  var ruler = $("#ruler");
-  var marker = $("#mk");
-  var label = $("#rl");
-  var ticks = [];
+  var pg = $("#pg");
 
-  zones.forEach(function () {
-    var tick = document.createElement("i");
-    ruler.appendChild(tick);
-    ticks.push(tick);
-  });
-
-  function placeTicks() {
-    ticks.forEach(function (tick, index) {
-      tick.style.left = "";
-      tick.style.top = "";
-      tick.style[isMobile() ? "left" : "top"] = (index / (zones.length - 1) * 100) + "%";
-    });
-  }
-
-  function updateRuler(S) {
-    var middle = S + innerHeight * 0.5;
-    var active = 0;
-
-    zones.forEach(function (zone, index) {
-      if (zone.getBoundingClientRect().top + S <= middle) { active = index; }
-    });
-
-    var zone = zones[active];
-    var top = zone.getBoundingClientRect().top + S;
-    var fraction = clamp((middle - top) / zone.offsetHeight, 0, 1);
-    var percent = Math.min(100, (active + fraction) / (zones.length - 1) * 100);
-
-    marker.style[isMobile() ? "left" : "top"] = percent + "%";
-    ticks.forEach(function (tick, index) { tick.classList.toggle("on", index <= active); });
-    label.textContent = zone.getAttribute("data-name");
+  function updateProgress(S) {
+    var max = document.documentElement.scrollHeight - innerHeight;
+    pg.style.transform = "scaleX(" + (max > 0 ? clamp(S / max, 0, 1) : 0).toFixed(4) + ")";
   }
 
   /* ==========================================================
@@ -289,7 +258,7 @@
     ticking = false;
     var S = window.scrollY;
 
-    updateRuler(S);
+    updateProgress(S);
 
     if (RM) { return; }
 
@@ -306,7 +275,6 @@
   }
 
   function relayout() {
-    placeTicks();
     recalc();
     request();
   }
@@ -426,7 +394,6 @@
   });
 
   /* ---------- старт ---------- */
-  placeTicks();
   recalc();
   frame();
 })();
