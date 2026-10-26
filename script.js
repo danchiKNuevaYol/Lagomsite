@@ -79,7 +79,6 @@
   var world = $("#world");
   var items = [];
   var cam = 0;
-  var frozen = false;
 
   (function buildNoise() {
     var r = rng(5);
@@ -115,9 +114,7 @@
   function updateNoise(p) {
     var t = clamp((p - 0.18) / (0.78 - 0.18), 0, 1);
 
-    if (!frozen) {
-      cam = (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2) * 3200;
-    }
+    cam = (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2) * 3200;
 
     world.style.transform = "translateZ(" + cam.toFixed(1) + "px)";
 
@@ -131,9 +128,6 @@
       else if (d < 540) { o = 1 - (d - 250) / 290; }
       else { o = 0; }
 
-      // в режиме паузы всё, что в зоне видимости, читается полностью
-      if (frozen && d > -2300 && d < 500) { o = 1; }
-
       it.el.style.opacity = o.toFixed(3);
       it.el.style.visibility = o <= 0 ? "hidden" : "visible";
     });
@@ -143,17 +137,7 @@
      4. Первая зона: титул → шум → обрыв
      ========================================================== */
   var beatTitle = $("#beatTitle");
-  var pauseBtn = $("#pause");
   var hint = $("#hint");
-  var srcCap = $("#srcCap");
-
-  pauseBtn.addEventListener("click", function () {
-    frozen = !frozen;
-    stage.classList.toggle("paused", frozen);
-    pauseBtn.setAttribute("aria-pressed", String(frozen));
-    pauseBtn.textContent = frozen ? "Продолжить движение" : "Остановить движение";
-    request();
-  });
 
   function updateHero(S) {
     var H = hero.offsetHeight - innerHeight;
@@ -166,9 +150,6 @@
     beatTitle.style.transform = "translate3d(0," + (-smooth(clamp(p / 0.2, 0, 1)) * 8).toFixed(2) + "vh,0)";
     scene.style.opacity = cut ? 0 : smooth(clamp((p - 0.13) / 0.06, 0, 1)).toFixed(3);
 
-    var inNoise = p > 0.2 && p < 0.8;
-    pauseBtn.classList.toggle("on", inNoise);
-    srcCap.style.opacity = inNoise ? 1 : 0;
     hint.style.opacity = p > 0.03 ? 0 : 0.7;
 
     if (!cut) { updateNoise(p); }
@@ -250,6 +231,34 @@
   }
 
   /* ==========================================================
+     7b. После монеты блоки выезжают справа налево вместе с прокруткой
+     ========================================================== */
+  var SLIDE = [
+    "#z3 .theory > *", "#z3 .arch", "#z3 .comment",
+    "#z4 .ctl-col", "#z4 .out-col",
+    "#z5 .t-title", "#z5 .figwrap", "#z5 .prose > *",
+    "#z6 .finalwrap", "#z6 .qs li", "#z6 .closing", "#z6 .links", "#z6 .credits"
+  ];
+  var sliders = [];
+
+  SLIDE.forEach(function (sel) {
+    $$(sel).forEach(function (el) { sliders.push(el); });
+  });
+
+  function updateSlide() {
+    var vh = innerHeight;
+    var shift = Math.min(innerWidth * 0.3, 420);
+
+    sliders.forEach(function (el) {
+      var top = el.getBoundingClientRect().top;
+      var t = smooth(clamp((vh * 0.96 - top) / (vh * 0.5), 0, 1));
+
+      el.style.opacity = t.toFixed(3);
+      el.style.transform = t >= 1 ? "" : "translate3d(" + ((1 - t) * shift).toFixed(1) + "px,0,0)";
+    });
+  }
+
+  /* ==========================================================
      8. Главный цикл
      ========================================================== */
   var ticking = false;
@@ -270,6 +279,7 @@
     safe(updateHero, S);
     safe(updateDisc, S);
     safe(updateDrift, S);
+    safe(updateSlide, S);
   }
 
   function request() {

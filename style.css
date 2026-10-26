@@ -278,15 +278,6 @@ dd.tx {
 }
 
 /* Пауза: останавливаем камеру и дрожание, выпрямляем наклон */
-.stage.paused .slog {
-  --r: 0deg;
-  --ry: 0deg;
-}
-
-.stage.paused .slog span {
-  animation-play-state: paused;
-}
-
 /* Обрыв: «Достаточно» */
 .cutword {
   position: absolute;
@@ -307,9 +298,7 @@ dd.tx {
   animation: thud .42s var(--ease);
 }
 
-.stage.cut .scene,
-.stage.cut .pause,
-.stage.cut .src-cap {
+.stage.cut .scene {
   display: none;
 }
 
@@ -333,45 +322,6 @@ dd.tx {
   top: 77%;
   --d: clamp(56px, 7vw, 92px);
   transform: translate(-50%, -50%);
-}
-
-.pause {
-  position: absolute;
-  left: var(--gut);
-  bottom: clamp(24px, 6vh, 60px);
-  z-index: 22;
-  font: 500 15px / 1 var(--sans);
-  color: var(--light);
-  background: transparent;
-  border: 1px solid var(--light);
-  padding: 13px 20px;
-  min-height: 44px;
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .4s var(--ease);
-}
-
-.pause.on {
-  opacity: 1;
-  visibility: visible;
-}
-
-.pause:hover,
-.pause:focus-visible,
-.pause[aria-pressed="true"] {
-  background: var(--light);
-  color: var(--dark);
-}
-
-.src-cap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: clamp(28px, 6vh, 64px);
-  text-align: center;
-  opacity: 0;
-  transition: opacity .4s;
 }
 
 .hint {
@@ -437,7 +387,7 @@ dd.tx {
 
 .src-body {
   display: grid;
-  grid-template-columns: minmax(0, 8fr) minmax(0, 3fr);
+  grid-template-columns: minmax(0, 10fr);
   column-gap: clamp(24px, 4vw, 64px);
   margin-top: clamp(16px, 2vw, 28px);
   align-items: start;
@@ -455,19 +405,6 @@ dd.tx {
 .pull.tx[data-label]::before {
   font-style: normal;
   letter-spacing: 0;
-}
-
-.margin {
-  padding-top: .5em;
-  font-size: 13px;
-}
-
-.margin p + p, .margin .tx + p {
-  margin-top: 1.1em;
-}
-
-.margin b {
-  font-weight: 500;
 }
 
 /* --- 3. Две меры --- */
@@ -865,16 +802,6 @@ input[type=range] {
     --d: 112px;
   }
 
-  .pause {
-    bottom: 22px;
-  }
-
-  .src-cap {
-    right: auto;
-    left: var(--gut);
-    bottom: 76px;
-  }
-
   /* все сетки в одну колонку */
   .g12 {
     display: block;
@@ -882,11 +809,6 @@ input[type=range] {
 
   .src-body {
     display: block;
-  }
-
-  .margin {
-    margin-top: 20px;
-    padding-left: clamp(16px, 2vw, 32px);
   }
 
   .g12 > * {
@@ -966,10 +888,6 @@ input[type=range] {
 
   .disc,
   .hint,
-  .pause {
-    display: none;
-  }
-
   .hero {
     height: auto;
   }
@@ -1017,12 +935,6 @@ input[type=range] {
     min-height: 60vh;
   }
 
-  .src-cap {
-    position: static;
-    opacity: 1;
-    padding: 0 var(--gut) 6vh;
-  }
-
   /* вместо летающего диска — статичные в каждом якоре */
   .anchor {
     position: relative;
@@ -1052,9 +964,6 @@ input[type=range] {
   }
 
   .reveal,
-  .pause {
-    transition: none;
-  }
 }
 
 /* Реклама Volvo: пометки к цитатам и ссылки */
@@ -1065,4 +974,16 @@ input[type=range] {
 .src-meta a {
   color: inherit;
   text-underline-offset: .15em;
+}
+
+/* Авторская мысль */
+.author-note {
+  max-width: 30em;
+  margin-top: clamp(64px, 10vw, 150px);
+}
+
+.author-note p {
+  font: 400 clamp(22px, 2.2vw, 32px) / 1.4 var(--serif);
+  font-variation-settings: "opsz" 24;
+  letter-spacing: -.01em;
 }
