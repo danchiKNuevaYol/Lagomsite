@@ -38,29 +38,6 @@
   });
 
   /* ==========================================================
-     2. Иконки вещей (одинаковы в обоих наборах)
-     ========================================================== */
-  var ICONS = [
-    ["Пальто",   "M24 6 L12 14 L14 60 H50 L52 14 L40 6 L32 20 Z M32 20 V60"],
-    ["Свитер",   "M22 8 H42 L58 22 L52 32 L46 28 V58 H18 V28 L12 32 L6 22 Z M26 8 Q32 16 38 8"],
-    ["Джинсы",   "M18 6 H46 L50 58 H35 L32 26 L29 58 H14 Z M18 12 H46"],
-    ["Рубашка",  "M24 6 L32 14 L40 6 L58 16 L52 30 L46 27 V58 H18 V27 L12 30 L6 16 Z M32 14 V58"],
-    ["Ботинки",  "M20 6 H36 V30 L56 40 Q58 54 50 54 H14 Q12 54 12 50 Z"],
-    ["Куртка",   "M24 6 L10 14 V44 H18 V58 H46 V44 H54 V14 L40 6 L32 12 Z M32 12 V58"],
-    ["Шарф",     "M14 10 H50 V26 H14 Z M20 26 V56 H30 V26 M36 26 V46 H46 V26"]
-  ];
-
-  $$("[data-icons]").forEach(function (ul) {
-    ICONS.forEach(function (ic) {
-      var li = document.createElement("li");
-      li.innerHTML =
-        '<svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><path d="' + ic[1] + '"/></svg>' +
-        '<span class="t-cap">' + ic[0] + "</span>";
-      ul.appendChild(li);
-    });
-  });
-
-  /* ==========================================================
      3. Шум: объёмная сцена из слоганов
      ========================================================== */
 
@@ -215,175 +192,53 @@
     pg.style.transform = "scaleX(" + (max > 0 ? clamp(S / max, 0, 1) : 0).toFixed(4) + ")";
   }
 
+
   /* ==========================================================
      7. Огромные слова чуть уходят в сторону при прокрутке
      ========================================================== */
-  var drifters = $$(".drift");
+  var drifters = $$(".xl[data-speed]");
 
   function updateDrift() {
     var vh = innerHeight;
 
     drifters.forEach(function (el) {
-      if (hOn && hs.contains(el)) { el.style.transform = ""; return; }
       var speed = parseFloat(el.getAttribute("data-speed")) || 0;
       var r = el.getBoundingClientRect();
       var dy = r.top + r.height / 2 - vh / 2;
-      el.style.transform = "translate3d(" + (dy * speed).toFixed(1) + "px,0,0)";
+
+      var max = Math.min(70, innerWidth * 0.045);
+
+      el.style.transform = "translate3d(" + clamp(dy * speed, -max, max).toFixed(1) + "px,0,0)";
     });
   }
 
   /* ==========================================================
-     7b. После монеты блоки выезжают справа налево вместе с прокруткой
+     7b. Плавные появления: блоки поднимаются, фото раскрываются,
+         число в наборе считает до семи, снимки чуть смещаются внутри рамки
      ========================================================== */
-  var SLIDE = [
-    "#z3 .theory > *", "#z3 .arch", "#z3 .comment",
-    "#z4 .ctl-col", "#z4 .out-col",
-    "#z5 .t-title", "#z5 .figwrap", "#z5 .prose > *",
-    "#z6 .finalwrap", "#z6 .qs li", "#z6 .closing", "#z6 .links", "#z6 .credits"
-  ];
-  var sliders = [];
-
-  SLIDE.forEach(function (sel) {
-    $$(sel).forEach(function (el) { sliders.push(el); });
+  var RVS = $$("[data-rv]").map(function (el) {
+    return { el: el, kind: el.getAttribute("data-rv"), img: $("img", el), count: $(".count", el) };
   });
 
-  function updateSlide() {
-    if (hOn) { return; }
-    var vh = innerHeight;
-    var shift = Math.min(innerWidth * 0.3, 420);
-
-    sliders.forEach(function (el) {
-      var top = el.getBoundingClientRect().top;
-      var t = smooth(clamp((vh * 0.96 - top) / (vh * 0.5), 0, 1));
-
-      el.style.opacity = t.toFixed(3);
-      el.style.transform = t >= 1 ? "" : "translate3d(" + ((1 - t) * shift).toFixed(1) + "px,0,0)";
-    });
-  }
-
-  /* ==========================================================
-     7c. Горизонтальный проход после монеты
-     ========================================================== */
-  var hs = $("#hs");
-  var ht = $("#ht");
-  var hOn = false;
-
-  function setupH() {
-    var want = !RM && innerWidth > 700 && innerHeight >= 520;
-
-    if (want !== hOn) {
-      hOn = want;
-      document.documentElement.classList.toggle("h-on", hOn);
-
-      if (!hOn) {
-        hs.style.height = "";
-        ht.style.transform = "";
-      } else {
-        sliders.forEach(function (el) { el.style.opacity = ""; el.style.transform = ""; });
-      }
-    }
-
-    if (hOn) {
-      hs.style.height = (ht.offsetWidth - innerWidth + innerHeight) + "px";
-    }
-  }
-
-  function updateH(S) {
-    if (!hOn) { return; }
-    var top = hs.getBoundingClientRect().top + S;
-    var span = ht.offsetWidth - innerWidth;
-    var s = clamp(S - top, 0, span);
-    ht.style.transform = "translate3d(" + (-s).toFixed(1) + "px,0,0)";
-  }
-
-  // Ссылки внутри горизонтального прохода: переводим в вертикальную позицию
-  $$('a[href^="#"]').forEach(function (a) {
-    a.addEventListener("click", function (e) {
-      var id = a.getAttribute("href").slice(1);
-      var target = document.getElementById(id);
-
-      if (!hOn || !target || !hs.contains(target)) { return; }
-
-      e.preventDefault();
-      var first = target.querySelector(".inner > *") || target;
-      var left = first.offsetLeft;
-      var node = first;
-      // offsetLeft относительно ближайшего позиционированного предка; считаем от дорожки
-      left = first.getBoundingClientRect().left - ht.getBoundingClientRect().left;
-      scrollTo({ top: hs.getBoundingClientRect().top + scrollY + left, behavior: "auto" });
-    });
-  });
-
-  /* ==========================================================
-     7d. Спуск: цвет глубины, эскалатор, движение платформы
-     ========================================================== */
-  var depthEl = $("#depth");
-  var STOPS = [
-    [255, 255, 255],  // у входа
-    [243, 239, 230],  // вестибюль
-    [231, 226, 214],  // эскалатор
-    [221, 229, 240],  // платформа
-    [205, 218, 236]   // глубже
-  ];
-
-  function mix(t) {
-    var n = STOPS.length - 1;
-    var f = clamp(t, 0, 1) * n;
-    var i = Math.min(Math.floor(f), n - 1);
-    var u = f - i;
-    return "rgb(" + [0, 1, 2].map(function (k) {
-      return Math.round(lerp(STOPS[i][k], STOPS[i + 1][k], u));
-    }).join(",") + ")";
-  }
-
-  function updateDepthLayers(S) {
-    var z1 = $("#z1");
-    var start = z1.getBoundingClientRect().top + S - innerHeight;
-    var hsTop = hs.getBoundingClientRect().top + S;
-    var end = hOn ? hsTop + (ht.offsetWidth - innerWidth) : document.documentElement.scrollHeight - innerHeight;
-    var t = clamp((S - start) / Math.max(1, end - start), 0, 1);
-
-    depthEl.style.background = mix(t);
-
-    // платформа и рельсы едут вместе с горизонтальным проходом
-    if (hOn) {
-      var hx = clamp(S - hsTop, 0, ht.offsetWidth - innerWidth);
-      hs.style.setProperty("--hx", hx.toFixed(1));
-    }
-  }
-
-  /* ==========================================================
-     7e. Плавные появления: листы поднимаются, выпрямляются, числа считают
-     ========================================================== */
-  var REVEALS = [".lead", ".src", ".author-note", ".set"].reduce(function (list, sel) {
-    $$(sel).forEach(function (el) { list.push({ el: el, rot: 0, count: $(".count", el) }); });
-    return list;
-  }, []);
-
-  function readBaseRotations() {
-    REVEALS.forEach(function (r) {
-      r.el.style.transform = "";
-      var m = /matrix\(([^)]+)\)/.exec(getComputedStyle(r.el).transform);
-      r.rot = 0;
-
-      if (m) {
-        var v = m[1].split(",");
-        r.rot = Math.atan2(parseFloat(v[1]), parseFloat(v[0])) * 180 / Math.PI;
-      }
-    });
-  }
-
-  function updateReveals() {
+  function updateRv() {
     var vh = innerHeight;
 
-    REVEALS.forEach(function (r) {
+    RVS.forEach(function (r) {
       var rect = r.el.getBoundingClientRect();
-      // 0, когда лист только показался снизу, 1, когда он дошёл до 62% высоты экрана
-      var t = smooth(clamp((vh * 0.96 - rect.top) / (vh * 0.34), 0, 1));
-      var rot = r.rot * (1 + (1 - t) * 3) + (1 - t) * (r.rot >= 0 ? 2.2 : -2.2);
+      var t = smooth(clamp((vh * 0.97 - rect.top) / (vh * 0.3), 0, 1));
 
-      r.el.style.opacity = (0.08 + 0.92 * t).toFixed(3);
-      r.el.style.transform = "translate3d(0," + ((1 - t) * 70).toFixed(1) + "px,0) rotate(" + rot.toFixed(2) + "deg)";
+      if (r.kind === "rise") {
+        r.el.style.opacity = (0.06 + 0.94 * t).toFixed(3);
+        r.el.style.transform = t >= 1 ? "" : "translate3d(0," + ((1 - t) * 56).toFixed(1) + "px,0)";
+      } else {
+        var cut = ((1 - t) * 100).toFixed(1);
+        r.el.style.clipPath = t >= 1 ? "" : (r.kind === "wipe-r" ? "inset(0 0 0 " + cut + "%)" : "inset(0 " + cut + "% 0 0)");
+      }
+
+      if (r.img) {
+        var c = (rect.top + rect.height / 2 - vh / 2) / vh;
+        r.img.style.transform = "translate3d(0," + (c * -5).toFixed(2) + "%,0) scale(1.1)";
+      }
 
       if (r.count) {
         r.count.textContent = String(Math.round(7 * clamp(t * 1.3, 0, 1)));
@@ -392,20 +247,21 @@
   }
 
   /* ==========================================================
-     7f. Горизонтальный проход: экраны чуть отъезжают и гаснут по краям
+     7c. Шапка листа: подсвечиваем раздел, в котором читатель
      ========================================================== */
-  function updateSlides3d() {
-    if (!hOn) { return; }
+  var navLinks = $$(".bar ul a[href^='#']");
+  var navZones = navLinks.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
 
-    var slides = $$("#ht .inner > *");
-    var vw = innerWidth;
+  function updateNav() {
+    var cur = -1;
 
-    slides.forEach(function (el) {
-      var p = clamp(el.getBoundingClientRect().left / vw, -1, 1);
-      var a = Math.abs(p);
+    navZones.forEach(function (z, i) {
+      if (z && z.getBoundingClientRect().top <= innerHeight * 0.4) { cur = i; }
+    });
 
-      el.style.opacity = (1 - smooth(clamp((a - 0.25) / 0.75, 0, 1)) * 0.92).toFixed(3);
-      el.style.transform = a < 0.001 ? "" : "scale(" + (1 - a * 0.07).toFixed(4) + ")";
+    navLinks.forEach(function (a, i) {
+      if (i === cur) { a.setAttribute("aria-current", "true"); }
+      else { a.removeAttribute("aria-current"); }
     });
   }
 
@@ -424,17 +280,14 @@
 
     // каждый эффект защищён отдельно: сбой одного не останавливает остальные
     safe(updateProgress, S);
+    safe(updateNav, S);
 
     if (RM) { return; }
 
     safe(updateHero, S);
     safe(updateDisc, S);
     safe(updateDrift, S);
-    safe(updateSlide, S);
-    safe(updateH, S);
-    safe(updateReveals, S);
-    safe(updateSlides3d, S);
-    safe(updateDepthLayers, S);
+    safe(updateRv, S);
   }
 
   function request() {
@@ -445,8 +298,6 @@
   }
 
   function relayout() {
-    setupH();
-    readBaseRotations();
     recalc();
     request();
   }
@@ -457,6 +308,7 @@
 
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(relayout); }
   if (window.ResizeObserver) { new ResizeObserver(relayout).observe(document.body); }
+
 
   /* ==========================================================
      9. «Кто определяет меру?»: открыть условия каждого набора
@@ -565,9 +417,8 @@
     render();
   });
 
+
   /* ---------- старт ---------- */
-  setupH();
-  readBaseRotations();
   recalc();
   frame();
 })();

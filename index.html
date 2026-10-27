@@ -8,20 +8,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200..800;1,200..800&display=swap">
-  <link rel="stylesheet" href="fonts.css?v=31">
-  <link rel="stylesheet" href="style.css?v=31">
+  <link rel="stylesheet" href="fonts.css?v=40">
+  <link rel="stylesheet" href="style.css?v=40">
 </head>
 <body>
 
   <!--
-    МАКЕТ. Серые полосы внутри блоков с классом .tx — места под текст.
-    Чтобы вставить текст: удалите содержимое блока и напишите <p>...</p>.
-    Подпись-метка (data-label) пропадёт сама, когда уберёте атрибут.
+    РЕДАКЦИОННАЯ ВЁРСТКА.
+    Заголовки: большие слова с классом .xl. Замените текст внутри на присланный.
+    Фото: блоки <figure class="photo">. Внутри .pm лежит заглушка (класс ph).
+      Чтобы вставить фото: уберите класс ph и текст-заглушку, положите
+      <img src="img/файл.jpg" alt="описание"> и поправьте <figcaption>.
+    Серые полосы .tx — места под текст, которого ещё нет.
     Цифра 7 (диск) переезжает между блоками .anchor [data-disc].
   -->
-
-  <!-- Слои спуска: цвет глубины и эскалатор -->
-  <div class="depth" id="depth" aria-hidden="true"></div>
 
   <!-- Тонкая полоса прогресса -->
   <div class="progress" aria-hidden="true"><i id="pg"></i></div>
@@ -29,7 +29,7 @@
   <!-- Сквозной предмет: одно число, разные смыслы -->
   <div class="disc" id="disc" aria-hidden="true"><b>7</b></div>
 
-  <!-- 1. LAGOM: титул → шум обещаний → «Достаточно» (единственная тёмная зона) -->
+  <!-- 1. LAGOM: титул → шум обещаний → «достаточно» (тёмный вход) -->
   <header class="hero" id="z0" data-name="Lagom">
     <div class="stage" id="stage">
 
@@ -51,57 +51,92 @@
     </div>
   </header>
 
-  <main>
+  <main class="outer">
+    <div class="sheet" id="sheet">
 
-    <!-- 2. Откуда взялось «Достаточно» -->
-    <section class="zone paper" id="z1" data-name="Откуда «Достаточно»">
-      <div class="inner">
-        <h2 class="t-display drift" data-speed="-.05">Откуда<br>взялось<br>«Достаточно»</h2>
+      <nav class="bar" aria-label="Разделы">
+        <a class="brand" href="#z1">Кто определяет меру?</a>
+        <ul>
+          <li><a href="#z1">Откуда «достаточно»</a></li>
+          <li><a href="#z2">Две меры</a></li>
+          <li><a href="#z3">Отказ как знак</a></li>
+          <li><a href="#z4">Гардероб</a></li>
+          <li><a href="#z6">Вопрос</a></li>
+        </ul>
+      </nav>
 
-        <div class="g12">
-          <div class="t-body lead"><p>Звучит как личное чувство. Человек оглядывает шкаф, вспоминает, что носил за год, и решает: хватит. Но если прислушаться, как это появляется вокруг нас, оно чаще приходит извне. Об этом говорят бренды, книги, тур-агентства, и каждый раз вместе передаётся ещё что-то: образ человека, которому достаточно.</p></div>
+      <!-- 2. Откуда взялось «достаточно» -->
+      <section class="zone" id="z1" data-name="Откуда «достаточно»">
+        <h2 class="xl off1" data-slot="Заголовок" data-speed="-.05">Откуда<br>взялось<br>«достаточно»</h2>
+
+        <div class="g stand-row">
+          <div class="stand">
+            <p>Звучит как личное чувство. Человек оглядывает шкаф, вспоминает, что носил за год, и решает: хватит. Но если прислушаться, как это появляется вокруг нас, оно чаще приходит извне. Об этом говорят бренды, книги, тур-агентства, и каждый раз вместе передаётся ещё что-то: образ человека, которому достаточно.</p>
+          </div>
         </div>
 
-        <div class="src-list">
-          <article class="src">
-            <p class="t-cap src-meta"><b>Volvo, 1966</b> · «Your car is obsolete. Again.» · <a href="https://www.thehenryford.org/collections-and-research/digital-collections/artifact/365251/">The Henry Ford, 2011.93.1</a> · реклама для американского рынка · дата обращения 23.10.2026</p>
-            <div class="src-body">
-              <blockquote class="pull">«…lasts an average of eleven years in Sweden…»</blockquote>
-              <p class="t-cap src-tr">Перевод: «…служит в среднем одиннадцать лет в Швеции…»</p>
-            </div>
-          </article>
-          <article class="src">
-            <p class="t-cap src-meta"><b>Ники Брантмарк</b> · «Что такое лагом» · издание · страница · ссылка</p>
-            <div class="src-body">
-              <blockquote class="pull tx" data-words="26" data-label="Цитата"></blockquote>
-            </div>
-          </article>
-          <article class="src">
-            <p class="t-cap src-meta"><b>Лола А. Экерстрём</b> · «Lagom: Секрет шведского благополучия» · издание · страница</p>
-            <div class="src-body">
-              <blockquote class="pull tx" data-words="26" data-label="Цитата"></blockquote>
-            </div>
-          </article>
+        <article class="entry" data-rv="rise">
+          <div class="side">
+            <h3>Volvo, 1966</h3>
+            <p class="meta">«Your car is obsolete. Again.» · реклама для американского рынка · <a href="https://www.thehenryford.org/collections-and-research/digital-collections/artifact/365251/">The Henry Ford, 2011.93.1</a> · дата обращения 23.10.2026</p>
+          </div>
+          <div class="quote">
+            <blockquote class="pull">«…lasts an average of eleven years in Sweden…»</blockquote>
+            <p class="meta tr">Перевод: «…служит в среднем одиннадцать лет в Швеции…»</p>
+          </div>
+        </article>
 
-        <div class="author-note">
-          <p>Volvo рекламировала свои машины в 1966 году на американском рынке. Реклама утверждала, что автомобиль не устареет вместе с модой и в среднем служит одиннадцать лет. А через какое-то время, в другой рекламе компания высказалась о других ожиданиях долговечности, ведь в Штатах культура вождения другая. Обещание осталось, но стало зависеть от дорог, климата и от того, как ездит покупатель. Одиннадцать лет оказались не свойством машины, а ответом на вопрос «при каких условиях».</p>
-          <p>С идеей умеренности происходит то же самое. Статьи и книги описывают шведское lagom как «в самый раз», как жизнь без крайностей. Звучит как универсальный рецепт. Но у каждого рецепта есть адресат: человек с достаточным доходом, жильём и временем, который может выбирать, чего у него будет меньше.</p>
-        </div>
-        </div>
-      </div>
-    </section>
+        <article class="entry" data-rv="rise">
+          <div class="side">
+            <h3>Ники Брантмарк</h3>
+            <p class="meta">«Что такое лагом» · издание · страница · ссылка</p>
+          </div>
+          <div class="quote">
+            <blockquote class="pull tx" data-words="26" data-label="Цитата"></blockquote>
+          </div>
+        </article>
 
-    <!-- 3. Кто определяет меру? -->
-    <section class="zone paper" id="z2" data-name="Кто определяет меру?">
-      <div class="inner">
-        <div class="g12 head">
-          <h2 class="t-title">Кто определяет<br>меру?</h2>
-          <p class="t-body intro">Есть два человека. У каждого в шкафу пусть будет по семь вещей: пальто, свитер, джинсы, рубашка, ботинки, куртка, шарф. Со стороны шкафы неотличимы. Первый мог бы купить больше, но не хочет: когда вещь изнашивается, он заменяет её, а число семь пересматривает, если захочет. Второй носит те же семь вещей, потому что других нет, и заменить износившееся ему нечем. Число одно, а смысл разный. У первого это решение, у второго обстоятельство.</p>
+        <article class="entry" data-rv="rise">
+          <div class="side">
+            <h3>Лола А. Экерстрём</h3>
+            <p class="meta">«Lagom: Секрет шведского благополучия» · издание · страница</p>
+          </div>
+          <div class="quote">
+            <blockquote class="pull tx" data-words="26" data-label="Цитата"></blockquote>
+          </div>
+        </article>
+
+        <div class="spread">
+          <figure class="photo bleed-l">
+            <div class="pm ph" data-rv="wipe-l" style="--ar:4/3"><span>Фото</span></div>
+            <figcaption>Подпись · кредит</figcaption>
+          </figure>
+          <div class="text dc" data-rv="rise">
+            <p>Volvo рекламировала свои машины в 1966 году на американском рынке. Реклама утверждала, что автомобиль не устареет вместе с модой и в среднем служит одиннадцать лет. А через какое-то время, в другой рекламе компания высказалась о других ожиданиях долговечности, ведь в Штатах культура вождения другая. Обещание осталось, но стало зависеть от дорог, климата и от того, как ездит покупатель. Одиннадцать лет оказались не свойством машины, а ответом на вопрос «при каких условиях».</p>
+            <p>С идеей умеренности происходит то же самое. Статьи и книги описывают шведское lagom как «в самый раз», как жизнь без крайностей. Звучит как универсальный рецепт. Но у каждого рецепта есть адресат: человек с достаточным доходом, жильём и временем, который может выбирать, чего у него будет меньше.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Кто определяет меру? -->
+      <section class="zone" id="z2" data-name="Кто определяет меру?">
+        <div class="hrow">
+          <h2 class="xl m" data-slot="Заголовок" data-speed=".04">Кто<br>определяет<br>меру?</h2>
+          <figure class="photo bleed-r">
+            <div class="pm ph" data-rv="wipe-r" style="--ar:4/5"><span>Фото</span></div>
+            <figcaption>Подпись · кредит</figcaption>
+          </figure>
+        </div>
+
+        <div class="g">
+          <div class="cols dc intro" data-rv="rise">
+            <p>Есть два человека. У каждого в шкафу пусть будет по семь вещей: пальто, свитер, джинсы, рубашка, ботинки, куртка, шарф. Со стороны шкафы неотличимы. Первый мог бы купить больше, но не хочет: когда вещь изнашивается, он заменяет её, а число семь пересматривает, если захочет. Второй носит те же семь вещей, потому что других нет, и заменить износившееся ему нечем. Число одно, а смысл разный. У первого это решение, у второго обстоятельство.</p>
+          </div>
         </div>
 
         <div class="duo">
-          <section class="set" aria-label="Случай 1">
-            <p class="count t-display">7</p>
+          <section class="set" aria-label="Случай 1" data-rv="rise">
+            <p class="count">7</p>
             <p class="t-cap">вещей · случай 1</p>
             <button class="btn open" type="button" data-target="condA" aria-expanded="false" aria-controls="condA">Открыть условия</button>
             <div class="reveal" id="condA"><div>
@@ -112,8 +147,8 @@
 
           <span class="anchor mid" data-disc></span>
 
-          <section class="set" aria-label="Случай 2">
-            <p class="count t-display">7</p>
+          <section class="set" aria-label="Случай 2" data-rv="rise">
+            <p class="count">7</p>
             <p class="t-cap">вещей · случай 2</p>
             <button class="btn open" type="button" data-target="condB" aria-expanded="false" aria-controls="condB">Открыть условия</button>
             <div class="reveal" id="condB"><div>
@@ -122,47 +157,44 @@
             </div></div>
           </section>
         </div>
+      </section>
 
-      </div>
-    </section>
+      <!-- 4. Отказ как знак -->
+      <section class="zone" id="z3" data-name="Отказ как знак">
+        <h2 class="xl off2" data-slot="Заголовок" data-speed="-.05">Отказ<br>как знак</h2>
 
-    <!-- После монеты: вертикальная прокрутка двигает страницу вправо -->
-    <div class="hscroll" id="hs"><div class="hstick"><div class="htrack" id="ht">
-
-    <!-- 4. Отказ как знак -->
-    <section class="zone" id="z3" data-name="Отказ как знак">
-      <div class="inner">
-        <h2 class="t-display drift" data-speed=".05">Отказ<br>как знак</h2>
-
-        <div class="g12 theory">
-          <blockquote class="pull">«…не только через хвастовство (по Веблену, “conspicuous”), но через скромность, строгость, стушевывание, всегда свидетельствующие о ещё большей роскоши…»</blockquote>
-          <p class="t-cap cite">
-            Ж. Бодрийяр, «Общество потребления», пер. Е. А. Самарская, М.: Республика; Культурная революция, 2006, с. 122.
-          </p>
-        </div>
-
-        <div class="g12 details">
-          <figure class="arch a1">
-            <div class="img-slot arch-top"><span class="t-cap">Изображение · кредит</span></div>
-            <figcaption class="t-cap">Одинаковое действие. Случай 1</figcaption>
-          </figure>
-          <figure class="arch a2">
-            <div class="img-slot arch-top"><span class="t-cap">Изображение · кредит</span></div>
-            <figcaption class="t-cap">Одинаковое действие. Случай 2</figcaption>
-          </figure>
-          <div class="comment">
-            <p class="t-body">Социологи давно заметили, что умеренность может работать и как знак. Когда броская роскошь перестаёт отличать людей, потому что её слишком много и она доступна слишком многим, различие перебирается в сдержанность. Скромность, строгость и «простота» начинают стоить дороже показной роскоши, потому что позволить себе простоту можно, только когда есть из чего выбирать. Так отказ от лишнего превращается в способ показать, кто мы такие.</p>
+        <div class="entry theory" data-rv="rise">
+          <div class="side">
+            <p class="meta">Ж. Бодрийяр, «Общество потребления», пер. Е. А. Самарская, М.: Республика; Культурная революция, 2006, с. 122.</p>
+          </div>
+          <div class="quote">
+            <blockquote class="pull">«…не только через хвастовство (по Веблену, “conspicuous”), но через скромность, строгость, стушевывание, всегда свидетельствующие о ещё большей роскоши…»</blockquote>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 5. Интерактив: число остаётся, условия меняются -->
-    <section class="zone" id="z4" data-name="Гардероб">
-      <div class="inner">
-        <div class="g12 play">
-          <div class="ctl-col">
-            <h2 class="t-title">Соберите условный гардероб</h2>
+        <div class="pair">
+          <figure class="photo bleed-l">
+            <div class="pm ph" data-rv="wipe-l" style="--ar:4/5"><span>Фото</span></div>
+            <figcaption>Одинаковое действие. Случай 1</figcaption>
+          </figure>
+          <figure class="photo">
+            <div class="pm ph" data-rv="wipe-l" style="--ar:4/5"><span>Фото</span></div>
+            <figcaption>Одинаковое действие. Случай 2</figcaption>
+          </figure>
+        </div>
+
+        <div class="g">
+          <div class="cols dc comment" data-rv="rise">
+            <p>Социологи давно заметили, что умеренность может работать и как знак. Когда броская роскошь перестаёт отличать людей, потому что её слишком много и она доступна слишком многим, различие перебирается в сдержанность. Скромность, строгость и «простота» начинают стоить дороже показной роскоши, потому что позволить себе простоту можно, только когда есть из чего выбирать. Так отказ от лишнего превращается в способ показать, кто мы такие.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Интерактив: число остаётся, условия меняются -->
+      <section class="zone" id="z4" data-name="Гардероб">
+        <div class="play">
+          <div class="ctl-col side-rule">
+            <h2 class="xl s" data-slot="Заголовок">Соберите условный гардероб</h2>
             <p class="t-body why">Посмотрите, что меняет возможность заменить вещи. Оставим количество вещей прежним, изменим условия.</p>
 
             <p class="t-cap label">Сколько вещей вам достаточно на сезон?</p>
@@ -179,76 +211,71 @@
           </div>
 
           <div class="out-col">
-            <p class="bign t-display" id="bign" aria-live="polite">?</p>
+            <p class="bign" id="bign" aria-live="polite">?</p>
             <p class="t-cap value" id="val">Выберите количество вещей</p>
             <div class="result" id="res" aria-live="polite"></div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 6. Когда умеренность вправду экономит -->
-    <section class="zone" id="z5" data-name="Когда экономит">
-      <div class="inner">
-        <h2 class="t-title">Когда умеренность<br>вправду экономит</h2>
+      <!-- 6. Когда умеренность вправду экономит -->
+      <section class="zone" id="z5" data-name="Когда экономит">
+        <h2 class="xl off3" data-slot="Заголовок" data-speed=".05">Когда умеренность<br>вправду экономит</h2>
 
-        <div class="figslide">
-        <div class="figwrap">
-          <p class="fig t-display drift" data-speed="-.04">−10 000 ₽</p>
+        <figure class="photo bleed-lr">
+          <div class="pm ph" data-rv="wipe-l" style="--ar:21/9"><span>Фото</span></div>
+          <figcaption>Подпись · кредит</figcaption>
+        </figure>
+
+        <div class="g">
+          <div class="cols dc prose" data-rv="rise">
+            <p>Бывает и другая сторона. Если человек живёт на ограниченный бюджет и умеренность помогает ему сэкономить, например носить то, что уже есть, и не покупать новое ради моды, она действительно работает на него. Но для этого нужны вещи, которые ещё можно носить, и спокойствие по поводу того, что скажут другие. Когда вещей нет, слово «достаточно» легко подменяется словом «приходится». Где проходит граница между ними, зависит не от самого человека.</p>
+          </div>
         </div>
-        </div>
+      </section>
 
-        <div class="prose t-body">
-          <p>Бывает и другая сторона. Если человек живёт на ограниченный бюджет и умеренность помогает ему сэкономить, например носить то, что уже есть, и не покупать новое ради моды, она действительно работает на него. Но для этого нужны вещи, которые ещё можно носить, и спокойствие по поводу того, что скажут другие. Когда вещей нет, слово «достаточно» легко подменяется словом «приходится». Где проходит граница между ними, зависит не от самого человека.</p>
-        </div>
-      </div>
-    </section>
+      <!-- 7. Вопрос из 3 -->
+      <section class="zone last" id="z6" data-name="Вопрос">
+        <h2 class="xl" data-slot="Заголовок" data-speed="-.05">Кто<br>определяет<br>меру?</h2>
 
-    <!-- 7. Вопрос из 3 -->
-    <section class="zone" id="z6" data-name="Вопрос">
-      <div class="inner">
-        <div class="finalwrap">
-          <h2 class="t-display">Кто<br>определяет<br>меру?</h2>
-        </div>
-
-        <div class="slide-wrap">
-          <p class="t-body closing">Выходит, кто-то называет меру, кто-то получает возможность её выбирать, а кому-то мера достаётся вместе с обстоятельствами. И каждый раз полезно задать четыре вопроса.</p>
+        <div class="g stand-row">
+          <div class="stand closing" data-rv="rise">
+            <p>Выходит, кто-то называет меру, кто-то получает возможность её выбирать, а кому-то мера достаётся вместе с обстоятельствами. И каждый раз полезно задать четыре вопроса.</p>
+          </div>
         </div>
 
-        <div class="slide-wrap">
-        <ul class="qs">
+        <ul class="qs" data-rv="rise">
           <li>Кто выбирает?</li>
           <li>При каких возможностях?</li>
           <li>Для какой потребности?</li>
           <li>Кто предлагает нам образ достаточности?</li>
         </ul>
+
+        <p class="links">
+          <a class="btn" href="#z2">К двум случаям</a>
+          <a class="btn" href="#z4">К условиям выбора</a>
+        </p>
+
+        <div class="entry credits">
+          <div class="side">
+            <h3>Источники</h3>
+          </div>
+          <div class="quote">
+            <ol class="t-cap">
+              <li>Volvo North American Corporation, «Your car is obsolete. Again.», 1966, The Henry Ford, 2011.93.1 <span class="soft">· ссылка · дата обращения 23.10.2026</span></li>
+              <li>Н. Брантмарк, «Что такое лагом» <span class="soft">· издание · страница</span></li>
+              <li>Л. А. Экерстрём, «Lagom: Секрет шведского благополучия» <span class="soft">· издание · страница</span></li>
+              <li>Ж. Бодрийяр, «Общество потребления», пер. Е. А. Самарская, М.: Республика; Культурная революция, 2006, сс. 118, 122–123</li>
+              <li>М. Соколов о культурном капитале, ПостНаука <span class="soft">· ссылка</span></li>
+            </ol>
+            <p class="t-cap soft">Учебные модели: реплики во втором и третьем разделах, бюджеты и расчёты в разделах про гардероб и экономию. Они не являются интервью или результатами исследования.</p>
+          </div>
         </div>
+      </section>
 
-        <div class="endslide">
-          <p class="links">
-            <a class="btn" href="#z2">К двум случаям</a>
-            <a class="btn" href="#z4">К условиям выбора</a>
-          </p>
-        </div>
-
-        <div class="credits">
-          <p class="t-cap"><b>Источники</b></p>
-          <ol class="t-cap">
-            <li>Volvo North American Corporation, «Your car is obsolete. Again.», 1966, The Henry Ford, 2011.93.1 <span class="soft">· ссылка · дата обращения 23.10.2026</span></li>
-            <li>Н. Брантмарк, «Что такое лагом» <span class="soft">· издание · страница</span></li>
-            <li>Л. А. Экерстрём, «Lagom: Секрет шведского благополучия» <span class="soft">· издание · страница</span></li>
-            <li>Ж. Бодрийяр, «Общество потребления», пер. Е. А. Самарская, М.: Республика; Культурная революция, 2006, сс. 118, 122–123</li>
-            <li>М. Соколов о культурном капитале, ПостНаука <span class="soft">· ссылка</span></li>
-          </ol>
-          <p class="t-cap soft">Учебные модели: реплики в зоне 3, бюджеты и расчёты в зонах 5–6. Они не являются интервью или результатами исследования.</p>
-        </div>
-      </div>
-    </section>
-
-    </div></div></div>
-
+    </div>
   </main>
 
-  <script src="script.js?v=31"></script>
+  <script src="script.js?v=40"></script>
 </body>
 </html>

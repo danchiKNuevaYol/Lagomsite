@@ -22,13 +22,8 @@
   box-sizing: inherit;
 }
 
-html {
-  scroll-padding-top: 24px;
-}
-
 body {
   margin: 0;
-  background: #fff;
   color: #000;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -326,447 +321,14 @@ dd.tx {
   transition: opacity .4s;
 }
 
-/* ==========================================================
-   Зоны 2–7: белые
-   ========================================================== */
-.zone {
-  position: relative;
-  padding: clamp(88px, 15vh, 180px) var(--gut);
-  background: transparent;
-  color: #000;
-  border-top: 1px solid #000;
-  overflow-x: clip;
-}
-
-.inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
-
-.g12 {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(12px, 2vw, 32px);
-}
-
-/* --- 2. Источники: одна колонка, выноска и поля --- */
-.g12 > .lead {
-  grid-column: 1 / 8;
-  margin-top: clamp(28px, 5vw, 72px);
-}
-
-.src-list {
-  margin-top: clamp(56px, 9vw, 140px);
-}
-
-.src {
-  margin-top: clamp(64px, 10vw, 150px);
-}
-
-.src:first-child {
-  margin-top: 0;
-}
-
-.src-meta {
-  max-width: 46em;
-  opacity: .65;
-}
-
-.src-meta b {
-  font-weight: 500;
-  opacity: 1;
-}
-
-.src-body {
-  display: grid;
-  grid-template-columns: minmax(0, 10fr);
-  column-gap: clamp(24px, 4vw, 64px);
-  margin-top: clamp(16px, 2vw, 28px);
-  align-items: start;
-}
-
-.pull {
-  margin: 0;
-  font: italic 300 clamp(28px, 3.6vw, 56px) / 1.16 var(--head);
-  letter-spacing: -.02em;
-}
-
-.pull.tx[data-label]::before {
-  font-style: normal;
-  letter-spacing: 0;
-}
-
-/* --- 3. Две меры --- */
-.head {
-  align-items: end;
-}
-
-.head h2 {
-  grid-column: 1 / 8;
-}
-
-.head .intro {
-  grid-column: 9 / 13;
-}
-
-.duo {
-  display: grid;
-  grid-template-columns: 1fr var(--d) 1fr;
-  gap: clamp(16px, 3vw, 48px);
-  margin-top: clamp(48px, 8vw, 120px);
-  align-items: start;
-}
-
-.mid {
-  margin-top: max(0px, calc(7vw - var(--d) / 2));
-}
-
-.set {
-  border-top: 1px solid #000;
-  padding-top: 1rem;
-}
-
-.count {
-  font-size: clamp(120px, 21vw, 330px);
-  line-height: .8;
-  margin-bottom: .12em;
-}
-
-.icons {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px 8px;
-  list-style: none;
-  padding: 0;
-  margin: clamp(20px, 3vw, 40px) 0;
-}
-
-.icons li {
-  display: grid;
-  justify-items: center;
-  gap: 6px;
-}
-
-.ic {
-  width: min(100%, 72px);
-  height: auto;
-  fill: none;
-  stroke: #000;
-  stroke-width: 1.5;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-
-.reveal {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition: grid-template-rows .6s var(--ease), opacity .5s var(--ease);
-}
-
-.reveal.shown {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-
-.reveal > div {
-  min-height: 0;
-  overflow: hidden;
-}
-
-.set .reveal > div > * {
-  margin-top: 1rem;
-}
-
-.finding {
-  margin-top: clamp(32px, 5vw, 72px);
-  max-width: 18em;
-  font: 400 clamp(28px, 4vw, 60px) / 1.08 var(--head);
-  letter-spacing: -.02em;
-}
-
-/* --- Кнопки --- */
-.btn {
-  display: inline-block;
-  font: 500 15px / 1 var(--mono);
-  color: #000;
-  background: #fff;
-  border: 1px solid #000;
-  border-radius: 0;
-  padding: 14px 22px;
-  min-height: 44px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn:hover,
-.btn:focus-visible {
-  background: #000;
-  color: #fff;
-}
-
-/* --- 4. Отказ как знак --- */
-.theory {
-  margin-top: clamp(40px, 7vw, 100px);
-}
-
-.theory .pull {
-  grid-column: 1 / 10;
-}
-
-.theory .cite {
-  grid-column: 1 / 8;
-  margin-top: 1.4rem;
-}
-
-.details {
-  margin-top: clamp(56px, 8vw, 120px);
-  align-items: start;
-}
-
-.arch {
-  margin: 0;
-}
-
-.a1 {
-  grid-column: 1 / 5;
-}
-
-.a2 {
-  grid-column: 5 / 9;
-  margin-top: clamp(40px, 8vw, 120px);
-}
-
-.comment {
-  grid-column: 1 / 9;
-  margin-top: clamp(40px, 6vw, 80px);
-  max-width: 34em;
-}
-
-.comment .t-cap {
-  margin-bottom: 1rem;
-}
-
-.img-slot {
-  display: flex;
-  align-items: flex-end;
-  aspect-ratio: 3 / 4;
-  padding: 12px;
-  border: 1px solid #000;
-  background: repeating-linear-gradient(135deg, transparent 0 10px, rgba(0, 0, 0, .07) 10px 11px);
-}
-
-.img-slot.arch-top {
-  border-radius: 999px 999px 0 0;
-}
-
-.arch figcaption {
-  margin-top: .7rem;
-}
-
-/* --- 5. Интерактив --- */
-.play {
-  align-items: start;
-}
-
-.ctl-col {
-  grid-column: 1 / 7;
-}
-
-.out-col {
-  grid-column: 8 / 13;
-  position: relative;
-}
-
-.why {
-  max-width: 28em;
-  margin: 1.2rem 0 0;
-}
-
-.label {
-  display: block;
-  margin: 2.2rem 0 .7rem;
-  font-weight: 500;
-}
-
-.group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.pick-btn {
-  font: 500 16px / 1 var(--mono);
-  color: #000;
-  background: #fff;
-  border: 1px solid #000;
-  border-radius: 0;
-  min-width: 56px;
-  min-height: 44px;
-  padding: 10px 18px;
-  cursor: pointer;
-}
-
-.pick-btn:hover,
-.pick-btn:focus-visible {
-  background: #000;
-  color: #fff;
-}
-
-/* Выбранное: инверсия, двойная рамка и галочка (не цвет) */
-.pick-btn[aria-pressed="true"] {
-  background: #000;
-  color: #fff;
-  box-shadow: 0 0 0 3px #fff, 0 0 0 5px #000;
-}
-
-.pick-btn[aria-pressed="true"]::before {
-  content: "✓ ";
-}
-
-input[type=range] {
-  display: block;
-  width: 100%;
-  max-width: 520px;
-  height: 44px;
-  margin: 0;
-  accent-color: #000;
-}
-
-.steps {
-  display: flex;
-  justify-content: space-between;
-  max-width: 520px;
-}
-
-.steps .on {
-  font-weight: 700;
-  text-decoration: underline;
-}
-
-.bign {
-  font-size: clamp(140px, 24vw, 380px);
-  line-height: .8;
-  font-weight: 300;
-}
-
-.a-out {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.value {
-  margin-top: 1.6rem;
-  padding-top: .8rem;
-  border-top: 1px solid #000;
-  font-weight: 500;
-}
-
-.result {
-  margin-top: 1.2rem;
-  min-height: 12em;
-}
-
-.result .t-quote {
-  font-style: normal;
-  font-size: clamp(22px, 2.2vw, 34px);
-  line-height: 1.25;
-}
-
-.result .t-body {
-  margin-top: 1em;
-}
-
-.result .t-cap {
-  margin-top: 1em;
-}
-
-/* --- 6. Когда экономит --- */
-.figwrap {
-  position: relative;
-  margin: clamp(32px, 6vw, 88px) 0 1rem;
-}
-
-.fig {
-  font-size: clamp(56px, 15vw, 250px);
-  font-weight: 300;
-  white-space: nowrap;
-}
-
-.a-fig {
-  position: absolute;
-  right: 4%;
-  top: 8%;
-  --d: clamp(80px, 12vw, 190px);
-}
-
-.prose {
-  max-width: 34em;
-  margin-top: clamp(40px, 7vw, 100px);
-}
-
-.prose > * + * {
-  margin-top: 1.4em;
-}
-
-/* --- 7. Вопрос --- */
-.finalwrap {
-  position: relative;
-}
-
-.a-final {
-  position: absolute;
-  right: 3%;
-  bottom: 6%;
-  --d: clamp(96px, 17vw, 270px);
-}
-
-.qs {
-  list-style: none;
-  padding: 0;
-  margin: clamp(48px, 8vw, 120px) 0 clamp(40px, 6vw, 80px);
-}
-
-.qs li {
-  padding: 8px 0 10px;
-  font: 400 clamp(24px, 3.4vw, 52px) / 1.1 var(--head);
-  letter-spacing: -.02em;
-}
-
-.closing {
-  max-width: 34em;
-}
-
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 2rem;
-}
-
-.credits {
-  margin-top: clamp(64px, 10vw, 140px);
-  max-width: 46em;
-}
-
-.credits ol {
-  margin: .8rem 0 1.4rem;
-  padding-left: 1.4em;
-  line-height: 1.8;
-}
 
 /* ==========================================================
-   Мобильная версия: не уменьшенный десктоп, а своя сборка
+   Первый экран: узкие экраны и «меньше движения»
    ========================================================== */
 @media (max-width: 700px) {
-  :root {
-    --d: 92px;
-  }
+  :root { --d: 92px; }
 
-  .hero {
-    height: 480vh;
-  }
+  .hero { height: 480vh; }
 
   .title h1 {
     top: 40%;
@@ -779,105 +341,22 @@ input[type=range] {
     gap: 14px;
   }
 
-  .promise {
-    width: 100%;
-  }
+  .promise { width: 100%; }
 
   .a-title {
     right: 6vw;
     top: 11vh;
     --d: 112px;
   }
-
-  /* все сетки в одну колонку */
-  .g12 {
-    display: block;
-  }
-
-  .src-body {
-    display: block;
-  }
-
-  .g12 > * {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .g12 > .lead {
-    margin-top: 28px;
-  }
-
-  .head .intro,
-  .theory .cite,
-  .a2,
-  .comment {
-    margin-top: 28px;
-  }
-
-  /* две арки рядом, комментарий под ними */
-  .details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 14px;
-  }
-
-  .comment {
-    grid-column: 1 / -1;
-  }
-
-  .a2 {
-    margin-top: 40px;
-  }
-
-  .duo {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .mid {
-    margin: 8px auto;
-  }
-
-  .count {
-    font-size: clamp(110px, 38vw, 180px);
-  }
-
-  .out-col {
-    margin-top: 40px;
-  }
-
-  .a-out {
-    top: 6px;
-  }
-
-  .bign {
-    font-size: clamp(110px, 38vw, 180px);
-  }
-
-  .a-fig {
-    right: 0;
-    top: -10px;
-    --d: 84px;
-  }
-
-  .a-final {
-    --d: 96px;
-  }
 }
 
-/* ==========================================================
-   Без анимации: законченные статичные экраны
-   ========================================================== */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
   .disc,
-  .hint,
-  .hero {
-    height: auto;
-  }
+  .hint { display: none; }
+
+  .hero { height: auto; }
 
   .stage {
     position: static;
@@ -912,9 +391,7 @@ input[type=range] {
     font-size: clamp(18px, 3vw, 40px) !important;
   }
 
-  .slog span {
-    animation: none;
-  }
+  .slog span { animation: none; }
 
   .cutword {
     position: relative;
@@ -922,505 +399,684 @@ input[type=range] {
     min-height: 60vh;
   }
 
-  /* вместо летающего диска — статичные в каждом якоре */
-  .anchor {
-    position: relative;
-  }
+  .a-title,
+  .a-noise { display: none; }
 
-  .anchor::after {
+  /* вместо летающего диска: неподвижный знак на месте якоря */
+  .mid { position: relative; }
+
+  .mid::after {
     content: "7";
     display: grid;
     place-items: center;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #000;
-    color: #fff;
+    background: var(--ink);
+    color: var(--sheet);
     font: 500 calc(var(--d) * .54) / 1 var(--head);
   }
-
-  .hero .anchor::after {
-    background: #fff;
-    color: #000;
-  }
-
-  .a-title,
-  .a-noise,
-  .a-cut {
-    display: none;
-  }
-
-  .reveal,
 }
-
-/* Реклама Volvo: пометки к цитатам и ссылки */
-.note-q {
-  margin-top: .8em;
-}
-
-.src-meta a {
-  color: inherit;
-  text-underline-offset: .15em;
-}
-
-/* Авторская мысль */
-.author-note {
-  max-width: 30em;
-  margin-top: clamp(64px, 10vw, 150px);
-}
-
-.author-note p {
-  font: 400 clamp(17px, 1.5vw, 22px) / 1.65 var(--mono);
-  letter-spacing: -.01em;
-}
-
 /* ==========================================================
-   Горизонтальный проход: вертикальная прокрутка двигает
-   страницу вправо (включается скриптом на широких экранах)
+   2–7. Редакционный лист: светлая страница на тёмном фоне.
+   Колонки, крупные заголовки, фото на край листа,
+   подписи с тонкой линией сверху. Цвета: беловатый и тёмный.
    ========================================================== */
-.h-on .hstick {
+:root {
+  --ink: #14120f;
+  --sheet: #f3f0e8;
+  --outer: #0b0a08;
+  --mute: #66615a;
+  --photo-bg: #d8d3c6;
+  --pad: clamp(20px, 5.5vw, 76px);
+  --col: clamp(14px, 2vw, 28px);
+  --bar: 56px;
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .08 0 0 0 0 .07 0 0 0 0 .06 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+html {
+  scroll-padding-top: calc(var(--bar) + 16px);
+}
+
+body {
+  background: var(--outer);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.outer {
+  padding: 0 clamp(0px, 4vw, 64px);
+}
+
+.sheet {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  background: var(--grain), var(--sheet);
+  color: var(--ink);
+  overflow-x: clip;
+}
+
+/* ---------- Шапка листа ---------- */
+.bar {
   position: sticky;
   top: 0;
-  height: 100vh;
-  overflow: hidden;
-  background: transparent;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--bar);
+  padding: 0 var(--pad);
+  background: var(--grain), var(--sheet);
+  border-bottom: 1px solid var(--ink);
 }
 
-.h-on .htrack {
+.brand {
+  flex: none;
+  font: 800 20px / 1 var(--head);
+  letter-spacing: -.03em;
+  color: inherit;
+  text-decoration: none;
+}
+
+.bar ul {
   display: flex;
-  width: max-content;
-  height: 100%;
+  gap: clamp(14px, 2vw, 30px);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.bar ul::-webkit-scrollbar {
+  display: none;
+}
+
+.bar li a {
+  display: block;
+  padding: 8px 0 6px;
+  font: 500 13px / 1 var(--mono);
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color .25s;
+}
+
+.bar li a:hover,
+.bar li a[aria-current] {
+  border-bottom-color: var(--ink);
+}
+
+/* ---------- Раздел, сетка ---------- */
+.zone {
+  padding: clamp(72px, 11vw, 150px) var(--pad) 0;
+}
+
+.zone.last {
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.g,
+.entry,
+.spread,
+.hrow,
+.pair,
+.play {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col);
+}
+
+/* ---------- Заголовок: крупное слово ---------- */
+.xl {
+  margin: 0;
+  font: 800 clamp(38px, 9vw, 128px) / .86 var(--head);
+  letter-spacing: -.045em;
+  text-wrap: balance;
   will-change: transform;
 }
 
-.h-on .htrack .zone,
-.h-on .htrack .inner {
-  display: contents;
+.xl.m { font-size: clamp(34px, 6vw, 88px); }
+.xl.s { font-size: clamp(30px, 4.2vw, 56px); line-height: .95; letter-spacing: -.035em; }
+.xl.off1 { margin-left: clamp(0px, 8vw, 110px); }
+.xl.off2 { margin-left: clamp(0px, 16vw, 220px); }
+.xl.off3 { margin-left: clamp(0px, 4vw, 60px); }
+
+/* ---------- Вводный абзац крупно ---------- */
+.stand-row {
+  margin-top: clamp(28px, 4vw, 56px);
 }
 
-.h-on .htrack .inner > * {
-  flex: 0 0 auto;
-  width: 100vw;
-  height: 100vh;
+.stand {
+  grid-column: 4 / 13;
+  font: 300 clamp(20px, 2.1vw, 30px) / 1.32 var(--head);
+  letter-spacing: -.01em;
+}
+
+/* ---------- Источник: боковая подпись + цитата ---------- */
+.entry {
+  margin-top: clamp(48px, 7vw, 100px);
+  align-items: start;
+}
+
+.side {
+  grid-column: 1 / 5;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
+}
+
+.side h3 {
+  margin: 0 0 12px;
+  font: 800 clamp(22px, 2.4vw, 32px) / .95 var(--head);
+  letter-spacing: -.03em;
+}
+
+.meta {
   margin: 0;
-  padding: 0 max(var(--gut), calc((100vw - var(--maxw)) / 2 + var(--gut)));
-  overflow-x: hidden;
-  overflow-y: auto;
+  font: 400 12.5px / 1.55 var(--mono);
+  color: var(--mute);
 }
 
-.h-on .htrack .inner > *:not(.g12) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.meta a {
+  color: inherit;
+  text-underline-offset: 3px;
 }
 
-.h-on .htrack .links {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* длинный текст остаётся читаемым: блок по центру, строки слева */
-.h-on .htrack .prose > * {
+.meta.tr {
+  margin-top: 1.1rem;
   max-width: 34em;
-  text-align: left;
 }
 
-.h-on .htrack .credits ol {
-  text-align: left;
+.quote {
+  grid-column: 5 / 13;
 }
 
-.h-on .htrack .qs li {
-  list-style: none;
+.pull {
+  margin: 0;
+  font: italic 300 clamp(26px, 3.5vw, 50px) / 1.14 var(--head);
+  letter-spacing: -.02em;
 }
 
-.h-on .htrack .inner > .g12 {
-  align-content: center;
+.pull.tx[data-label]::before {
+  font-style: normal;
+  letter-spacing: 0;
 }
 
-.h-on .htrack .inner > .g12 .arch .img-slot {
-  max-height: 56vh;
+.entry.theory .side {
+  border-top-color: transparent;
 }
 
-.h-on .htrack .qs,
-.h-on .htrack .links,
-.h-on .htrack .credits {
-  max-width: none;
+.entry.theory .side .meta {
+  padding-top: 6px;
 }
 
-.h-on .htrack .endslide .closing {
-  max-width: 30em;
+/* ---------- Фото ---------- */
+.photo {
+  margin: 0;
 }
 
-.h-on .htrack .details .comment {
-  grid-column: 9 / 13;
-  margin-top: 0;
-  max-width: none;
+.pm {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ar, 4 / 3);
+  background: var(--photo-bg);
+}
+
+.pm img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.06);
+  will-change: transform;
+}
+
+.pm.ph {
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 10px, rgba(20, 18, 15, .08) 10px 11px),
+    var(--photo-bg);
+  font: 400 12px / 1.3 var(--mono);
+  color: var(--mute);
+}
+
+.photo figcaption {
+  max-width: 34em;
+  margin-top: 10px;
+  font: 400 11.5px / 1.5 var(--mono);
+  color: var(--mute);
+}
+
+.bleed-l  { margin-left: calc(var(--pad) * -1); }
+.bleed-r  { margin-right: calc(var(--pad) * -1); }
+.bleed-lr { margin: clamp(40px, 6vw, 88px) calc(var(--pad) * -1) 0; }
+
+.bleed-l figcaption,
+.bleed-lr figcaption {
+  padding-left: var(--pad);
+}
+
+/* ---------- Фото + текст ---------- */
+.spread {
+  align-items: start;
+  margin-top: clamp(64px, 9vw, 130px);
+}
+
+.spread .photo {
+  grid-column: 1 / 8;
+}
+
+.spread .text {
+  grid-column: 8 / 13;
+}
+
+/* ---------- Колонки текста, буквица ---------- */
+.text,
+.cols {
+  font: 400 14px / 1.7 var(--mono);
+}
+
+.text p + p,
+.cols p + p {
+  margin-top: 1em;
+}
+
+.cols {
+  column-count: 2;
+  column-gap: clamp(20px, 3vw, 40px);
+}
+
+.dc > p:first-child::first-letter {
+  float: left;
+  margin: .04em .1em 0 0;
+  font: 800 4.9em / .78 var(--head);
+  letter-spacing: 0;
+}
+
+/* ---------- Раздел 2: заголовок рядом с фото ---------- */
+.hrow {
+  align-items: end;
+}
+
+.hrow .xl {
+  grid-column: 1 / 8;
   align-self: center;
 }
 
-.h-on .htrack .details .a2 {
-  margin-top: 0;
+.hrow .photo {
+  grid-column: 8 / 13;
 }
 
-/* Центрирование сеток внутри экранов */
-.h-on .htrack .theory .pull {
-  grid-column: 2 / 12;
-  border-left: 0;
-  padding-left: 0;
-  text-align: center;
+.intro,
+.prose,
+.comment {
+  grid-column: 5 / 13;
 }
 
-.h-on .htrack .theory .cite {
-  grid-column: 2 / 12;
-  padding-left: 0;
-  text-align: center;
+.g > .intro,
+.g > .prose,
+.g > .comment {
+  margin-top: clamp(40px, 6vw, 84px);
 }
 
-.h-on .htrack .details .a1 { grid-column: 2 / 5; }
-.h-on .htrack .details .a2 { grid-column: 5 / 8; }
-.h-on .htrack .details .comment { grid-column: 8 / 12; }
-
-.h-on .htrack .play .ctl-col { grid-column: 2 / 7; }
-.h-on .htrack .play .out-col { grid-column: 8 / 12; }
-
-.h-on .htrack .prose,
-.h-on .htrack .credits,
-.h-on .htrack .qs,
-.h-on .htrack .endslide {
-  max-width: none;
+/* ---------- Две меры ---------- */
+.duo {
+  display: grid;
+  grid-template-columns: 1fr var(--d) 1fr;
+  gap: var(--col);
+  align-items: start;
+  margin-top: clamp(56px, 8vw, 120px);
 }
 
-/* ==========================================================
-   Спуск в метро: цвет глубины, эскалатор, платформа
-   ========================================================== */
-.depth {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: #fff;
-  pointer-events: none;
-}
-
-/* платформа: свод пещеры сверху, рельсы снизу (только в горизонтальном проходе) */
-.h-on .hstick::before,
-.h-on .hstick::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.h-on .hstick::before {
-  top: 0;
-  height: 13vh;
-  background:
-    radial-gradient(circle at 50% 72%, #ffe9b0 0 5px, rgba(255, 233, 176, .25) 6px 14px, transparent 15px) calc(var(--hx, 0) * -.55px) 0 / 260px 100% repeat-x,
-    #1b2030;
-  clip-path: polygon(0 0, 100% 0, 100% 62%, 96% 86%, 91% 68%, 84% 100%, 77% 74%, 69% 92%, 61% 66%, 53% 96%, 46% 70%, 37% 100%, 29% 76%, 21% 93%, 13% 66%, 6% 88%, 0 70%);
-}
-
-.h-on .hstick::after {
-  bottom: 0;
-  height: 11vh;
-  background:
-    repeating-linear-gradient(90deg, #8b93a3 0 4px, transparent 4px 64px) calc(var(--hx, 0) * -1px) 38% / auto 14% repeat-x,
-    linear-gradient(#8b93a3, #8b93a3) 0 24% / 100% 3px no-repeat,
-    linear-gradient(#8b93a3, #8b93a3) 0 56% / 100% 3px no-repeat,
-    #1b2030;
-}
-
-.h-on .htrack {
-  position: relative;
-  z-index: 1;
-}
-
-/* Перевод под цитатой */
-.tr {
-  margin-top: 1rem;
-  padding-left: clamp(16px, 2vw, 32px);
-  max-width: 46em;
-  opacity: .75;
-}
-
-.src-tr {
-  max-width: 46em;
-  margin-top: 1rem;
-  font-size: 14px;
-  opacity: .8;
-}
-
-/* ==========================================================
-   Первая часть: рекламные вырезки на бумаге
-   ========================================================== */
-:root {
-  --paper: #ece5d3;
-  --clip: #f8f4e8;
-  --ink: #15130f;
-}
-
-.zone.paper {
-  background-color: var(--paper);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 .2  0 0 0 0 .16  0 0 0 0 .1  0 0 0 .22 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
-  color: var(--ink);
-  isolation: isolate;
-}
-
-.zone.paper::before {
-  display: none;
-}
-
-
-/* каждый источник это вырезка из газеты или журнала */
-.src {
-  position: relative;
-  max-width: 66rem;
-  padding: clamp(24px, 3.4vw, 48px) clamp(22px, 3.6vw, 52px) clamp(22px, 3vw, 40px);
-  background: var(--clip);
-  border: 1.5px dashed var(--ink);
-  box-shadow: 0 22px 34px -24px rgba(21, 19, 15, .55);
-  transform: rotate(-.5deg);
-}
-
-.src:nth-child(even) {
-  margin-left: auto;
-  transform: rotate(.45deg);
-}
-
-.src::before {
-  content: "✂";
-  position: absolute;
-  left: 22px;
-  top: -.8em;
-  padding: 0 .35em;
-  background: var(--paper);
-  font: 400 22px / 1 var(--mono);
-}
-
-.src::after {
-  content: "";
-  position: absolute;
-  right: clamp(24px, 6vw, 90px);
-  top: -14px;
-  width: 92px;
-  height: 26px;
-  background: rgba(226, 205, 140, .62);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
-  transform: rotate(3.5deg);
-}
-
-.src-meta {
-  opacity: .7;
-}
-
-.src .pull {
-  position: relative;
-  color: var(--ink);
-  font-weight: 300;
-}
-
-/* большая кавычка вместо чёрной линии */
-.src .pull::before {
-  content: "«";
-  position: absolute;
-  left: -.12em;
-  top: -.55em;
-  font: 300 3.4em / 1 var(--head);
-  opacity: .1;
-  pointer-events: none;
-}
-
-.src-tr {
-  max-width: 40em;
-}
-
-/* авторская заметка как лист из пишущей машинки */
-.paper .author-note {
-  position: relative;
-  max-width: 34em;
-  padding: clamp(24px, 3vw, 44px) clamp(22px, 3vw, 44px);
-  background: #fffdf5;
-  box-shadow: 0 18px 30px -22px rgba(21, 19, 15, .55);
-  transform: rotate(.3deg);
-}
-
-.paper .author-note p + p {
-  margin-top: 1.2em;
-}
-
-/* заголовок и вводный текст на бумаге */
-.paper .lead {
-  max-width: 34em;
-}
-
-#z2.paper .set {
-  border-top-color: var(--ink);
-}
-
-@media (max-width: 700px) {
-  .src,
-  .src:nth-child(even),
-  .paper .author-note {
-    transform: none;
-  }
-
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .src,
-  .src:nth-child(even),
-  .paper .author-note {
-    transform: none;
-  }
-}
-
-/* ==========================================================
-   Дальше тот же язык: бумага, вырезки, скотч, машинка
-   ========================================================== */
-.set,
-.theory .pull,
-.comment,
-.ctl-col,
-.out-col,
-.prose p,
-.closing,
-.qs,
-.credits ol,
-.figwrap {
-  position: relative;
-  background: var(--clip);
-  border: 1.5px dashed var(--ink);
-  box-shadow: 0 20px 32px -24px rgba(21, 19, 15, .55);
-  padding: clamp(20px, 2.6vw, 38px);
-}
-
-.set::after,
-.theory .pull::after,
-.comment::after,
-.ctl-col::after,
-.prose p::after,
-.closing::after,
-.qs::after {
-  content: "";
-  position: absolute;
-  right: clamp(18px, 5%, 60px);
-  top: -13px;
-  width: 84px;
-  height: 24px;
-  background: rgba(226, 205, 140, .62);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
-  transform: rotate(3deg);
-  pointer-events: none;
-}
-
-.theory .pull::before {
-  display: none;
+.mid {
+  align-self: center;
 }
 
 .set {
-  border-top: 1.5px dashed var(--ink);
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
 }
 
-.set:nth-of-type(1) { transform: rotate(-.6deg); }
-.set:nth-of-type(2) { transform: rotate(.5deg); }
-
-/* фото в рамке, приклеенные скотчем */
-.arch {
-  position: relative;
-  padding: 14px 14px 12px;
-  background: #fffdf7;
-  box-shadow: 0 20px 30px -22px rgba(21, 19, 15, .6);
+.count {
+  margin: .04em 0 .1em;
+  font: 800 clamp(120px, 18vw, 250px) / .78 var(--head);
+  letter-spacing: -.05em;
 }
 
-.arch.a1 { transform: rotate(-1.2deg); }
-.arch.a2 { transform: rotate(1deg); }
-
-.arch::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: -13px;
-  width: 80px;
-  height: 24px;
-  margin-left: -40px;
-  background: rgba(226, 205, 140, .62);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
-  transform: rotate(-2deg);
+.set .t-cap {
+  color: var(--mute);
 }
 
-/* ценник */
-.figwrap {
+.btn {
   display: inline-block;
-  align-self: center;
-  border: 2px solid var(--ink);
-  border-radius: 18px;
-  padding: clamp(20px, 3vw, 44px) clamp(28px, 4vw, 64px) clamp(20px, 3vw, 44px) clamp(56px, 7vw, 104px);
-  transform: rotate(-1.5deg);
+  margin-top: 1.1rem;
+  min-height: 44px;
+  padding: 12px 18px;
+  font: 500 14px / 1.2 var(--mono);
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .25s, color .25s;
 }
 
-.figwrap::before {
-  content: "";
-  position: absolute;
-  left: clamp(16px, 2.4vw, 34px);
-  top: 50%;
-  width: clamp(14px, 1.6vw, 22px);
-  aspect-ratio: 1;
-  margin-top: calc(clamp(14px, 1.6vw, 22px) / -2);
-  border: 2px solid var(--ink);
-  border-radius: 50%;
-  background: var(--paper);
+.btn:hover,
+.btn:focus-visible {
+  background: var(--ink);
+  color: var(--sheet);
 }
 
-.figwrap .fig {
-  font-size: clamp(44px, 9vw, 150px);
+.reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .45s var(--ease);
+}
+
+.reveal.shown {
+  grid-template-rows: 1fr;
+}
+
+.reveal > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.reveal > div > * {
+  margin-top: 1.1rem;
+}
+
+/* ---------- Отказ как знак: два фото ---------- */
+.pair {
+  align-items: start;
+  margin-top: clamp(56px, 8vw, 110px);
+}
+
+.pair .photo:first-child {
+  grid-column: 1 / 7;
+}
+
+.pair .photo:last-child {
+  grid-column: 7 / 13;
+}
+
+/* ---------- Гардероб ---------- */
+.play {
+  align-items: start;
+}
+
+.ctl-col {
+  grid-column: 1 / 7;
+}
+
+.out-col {
+  grid-column: 8 / 13;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
+}
+
+.side-rule {
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
+}
+
+.why {
+  max-width: 28em;
+  margin: 1.2rem 0 0;
+}
+
+.label {
+  display: block;
+  margin: 2.2rem 0 .7rem;
+  font-weight: 500;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pick-btn {
+  min-width: 56px;
+  min-height: 44px;
+  padding: 10px 18px;
+  font: 500 16px / 1 var(--mono);
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background .25s, color .25s;
+}
+
+.pick-btn:hover,
+.pick-btn:focus-visible {
+  background: var(--ink);
+  color: var(--sheet);
+}
+
+/* выбранное: инверсия, двойная рамка и галочка, не только цвет */
+.pick-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--sheet);
+  box-shadow: 0 0 0 3px var(--sheet), 0 0 0 5px var(--ink);
+}
+
+.pick-btn[aria-pressed="true"]::before {
+  content: "✓ ";
+}
+
+input[type=range] {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: 44px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  max-width: 520px;
+}
+
+.steps .on {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.bign {
+  margin: 0;
+  font: 800 clamp(140px, 22vw, 320px) / .8 var(--head);
+  letter-spacing: -.05em;
+}
+
+.value {
+  margin-top: 1.6rem;
+  padding-top: .8rem;
+  border-top: 1px solid var(--ink);
+  font-weight: 500;
+}
+
+.result {
+  margin-top: 1.2rem;
+  min-height: 12em;
+}
+
+.result .t-quote {
+  font-style: normal;
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.25;
+}
+
+.result .t-body {
+  margin-top: 1em;
+}
+
+.result .t-cap {
+  margin-top: 1em;
+  color: var(--mute);
+}
+
+/* ---------- Финал ---------- */
+.closing {
+  margin-bottom: 0;
 }
 
 .qs {
-  text-align: left;
-  max-width: 34em;
-  margin-inline: auto;
+  margin: clamp(48px, 7vw, 100px) 0 0;
+  padding: 0;
+  list-style: none;
 }
 
 .qs li {
-  font-size: clamp(20px, 2.4vw, 34px);
+  padding: 14px 0 18px;
+  border-top: 1px solid var(--ink);
+  font: 800 clamp(24px, 4vw, 56px) / 1 var(--head);
+  letter-spacing: -.035em;
+}
+
+.qs li:last-child {
+  border-bottom: 1px solid var(--ink);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(32px, 4vw, 56px);
+}
+
+.links .btn {
+  margin-top: 0;
+}
+
+.credits {
+  margin-top: clamp(72px, 10vw, 140px);
 }
 
 .credits ol {
-  max-width: 52em;
-  margin-inline: auto;
-  text-align: left;
+  margin: 0;
+  padding-left: 1.4em;
 }
 
-.h-on .htrack .theory .pull {
-  padding: clamp(22px, 3vw, 44px);
+.credits li + li {
+  margin-top: .5em;
 }
 
-.h-on .htrack .prose p,
-.h-on .htrack .closing {
-  max-width: 34em;
-  text-align: left;
+.credits .t-cap + .t-cap,
+.credits ol + .t-cap {
+  margin-top: 1.4em;
 }
 
-@media (max-width: 700px) {
-  .set:nth-of-type(1),
-  .set:nth-of-type(2),
-  .arch.a1,
-  .arch.a2,
-  .figwrap {
-    transform: none;
+/* ==========================================================
+   Узкие экраны
+   ========================================================== */
+@media (max-width: 760px) {
+  .outer { padding: 0; }
+  .brand { display: none; }
+
+  .g > *,
+  .entry > *,
+  .spread > *,
+  .hrow > *,
+  .pair > *,
+  .play > *,
+  .stand,
+  .intro,
+  .prose,
+  .comment,
+  .side,
+  .quote {
+    grid-column: 1 / -1 !important;
   }
+
+  .hrow,
+  .spread,
+  .entry,
+  .pair,
+  .play {
+    row-gap: 24px;
+  }
+
+  .xl.off1,
+  .xl.off2,
+  .xl.off3 {
+    margin-left: 0;
+  }
+
+  .cols {
+    column-count: 1;
+  }
+
+  .duo {
+    grid-template-columns: 1fr;
+  }
+
+  .mid {
+    margin: 0 auto;
+  }
+
+  .hrow .photo,
+  .spread .photo {
+    margin-left: calc(var(--pad) * -1);
+    margin-right: calc(var(--pad) * -1);
+  }
+
+  .pair .photo:first-child {
+    margin-left: calc(var(--pad) * -1);
+  }
+
+  .hrow .photo figcaption,
+  .spread .photo figcaption,
+  .pair .photo:first-child figcaption {
+    padding-left: var(--pad);
+  }
+
+  .pair .photo:last-child {
+    margin-right: calc(var(--pad) * -1);
+  }
+
+  .play {
+    row-gap: 48px;
+  }
+
+  .a-title { right: 6vw; top: 14vh; }
 }
 
+/* ==========================================================
+   Меньше движения
+   ========================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .set:nth-of-type(1),
-  .set:nth-of-type(2),
-  .arch.a1,
-  .arch.a2,
-  .figwrap {
-    transform: none;
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
+
+  .xl,
+  [data-rv] {
+    transform: none !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+  }
+}
+
+/* мелкие пометки на листе: полный контраст вместо прозрачности */
+.sheet .soft {
+  opacity: 1;
+  color: var(--mute);
 }
