@@ -118,6 +118,7 @@ dd.tx {
   color: #000;
   /* difference: на тёмном — белый диск, на белом — чёрный */
   mix-blend-mode: difference;
+  transition: opacity .35s;
   will-change: transform;
 }
 

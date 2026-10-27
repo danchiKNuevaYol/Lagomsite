@@ -156,7 +156,10 @@
   }
 
   function updateDisc(S) {
-    disc.style.opacity = (stage.classList.contains("cut") && hero.getBoundingClientRect().bottom > innerHeight * 0.15) ? "0" : "1";
+    // монета не видна, пока идёт шум и слово «lagom»; на титуле и после первого экрана она на месте
+    var heroSpan = hero.offsetHeight - innerHeight;
+    var inNoise = S / heroSpan > 0.1 || stage.classList.contains("cut");
+    disc.style.opacity = (inNoise && hero.getBoundingClientRect().bottom > innerHeight * 0.15) ? "0" : "1";
     var i = 0;
     while (i < anchors.length - 1 && S >= anchors[i + 1].s) { i++; }
 
