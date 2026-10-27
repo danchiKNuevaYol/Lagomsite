@@ -1153,3 +1153,148 @@ input[type=range] {
   font-size: 14px;
   opacity: .8;
 }
+
+/* ==========================================================
+   Первая часть: рекламные вырезки на бумаге
+   ========================================================== */
+:root {
+  --paper: #ece5d3;
+  --clip: #f8f4e8;
+  --ink: #15130f;
+}
+
+.zone.paper {
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 .2  0 0 0 0 .16  0 0 0 0 .1  0 0 0 .22 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
+  color: var(--ink);
+  isolation: isolate;
+}
+
+/* растровый круг, как в печатной рекламе */
+.zone.paper::before {
+  content: "";
+  position: absolute;
+  right: -8vw;
+  top: -6vw;
+  width: min(46vw, 640px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  z-index: -1;
+  background: radial-gradient(circle, var(--ink) 1.3px, transparent 1.9px) 0 0 / 10px 10px;
+  -webkit-mask-image: radial-gradient(circle at 35% 62%, #000 0, transparent 70%);
+  mask-image: radial-gradient(circle at 35% 62%, #000 0, transparent 70%);
+  opacity: .55;
+}
+
+#z2.paper::before {
+  right: auto;
+  left: -10vw;
+  top: auto;
+  bottom: -6vw;
+}
+
+/* каждый источник это вырезка из газеты или журнала */
+.src {
+  position: relative;
+  max-width: 66rem;
+  padding: clamp(24px, 3.4vw, 48px) clamp(22px, 3.6vw, 52px) clamp(22px, 3vw, 40px);
+  background: var(--clip);
+  border: 1.5px dashed var(--ink);
+  box-shadow: 0 22px 34px -24px rgba(21, 19, 15, .55);
+  transform: rotate(-.5deg);
+}
+
+.src:nth-child(even) {
+  margin-left: auto;
+  transform: rotate(.45deg);
+}
+
+.src::before {
+  content: "✂";
+  position: absolute;
+  left: 22px;
+  top: -.8em;
+  padding: 0 .35em;
+  background: var(--paper);
+  font: 400 22px / 1 var(--mono);
+}
+
+.src::after {
+  content: "";
+  position: absolute;
+  right: clamp(24px, 6vw, 90px);
+  top: -14px;
+  width: 92px;
+  height: 26px;
+  background: rgba(226, 205, 140, .62);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
+  transform: rotate(3.5deg);
+}
+
+.src-meta {
+  opacity: .7;
+}
+
+.src .pull {
+  position: relative;
+  color: var(--ink);
+  font-weight: 300;
+}
+
+/* большая кавычка вместо чёрной линии */
+.src .pull::before {
+  content: "«";
+  position: absolute;
+  left: -.12em;
+  top: -.55em;
+  font: 300 3.4em / 1 var(--head);
+  opacity: .1;
+  pointer-events: none;
+}
+
+.src-tr {
+  max-width: 40em;
+}
+
+/* авторская заметка как лист из пишущей машинки */
+.paper .author-note {
+  position: relative;
+  max-width: 34em;
+  padding: clamp(24px, 3vw, 44px) clamp(22px, 3vw, 44px);
+  background: #fffdf5;
+  box-shadow: 0 18px 30px -22px rgba(21, 19, 15, .55);
+  transform: rotate(.3deg);
+}
+
+.paper .author-note p + p {
+  margin-top: 1.2em;
+}
+
+/* заголовок и вводный текст на бумаге */
+.paper .lead {
+  max-width: 34em;
+}
+
+#z2.paper .set {
+  border-top-color: var(--ink);
+}
+
+@media (max-width: 700px) {
+  .src,
+  .src:nth-child(even),
+  .paper .author-note {
+    transform: none;
+  }
+
+  .zone.paper::before {
+    width: 70vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .src,
+  .src:nth-child(even),
+  .paper .author-note {
+    transform: none;
+  }
+}
