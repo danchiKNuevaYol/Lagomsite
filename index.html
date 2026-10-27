@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Golos+Text:wght@400;500&display=swap">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -140,6 +140,9 @@
       </div>
     </section>
 
+    <!-- После монеты: вертикальная прокрутка двигает страницу вправо -->
+    <div class="hscroll" id="hs"><div class="hstick"><div class="htrack" id="ht">
+
     <!-- 4. Отказ как знак -->
     <section class="zone" id="z3" data-name="Отказ как знак">
       <div class="inner">
@@ -204,10 +207,12 @@
       <div class="inner">
         <h2 class="t-title">Когда умеренность<br>вправду экономит</h2>
 
+        <div class="figslide">
         <div class="figwrap">
           <p class="fig t-display drift" data-speed="-.04">−10 000 ₽</p>
         </div>
         <p class="t-cap soft">Учебная модель. Перед показом заменить документированным случаем: реальные суммы, период, результат.</p>
+        </div>
 
         <div class="prose t-body">
           <p>Представим человека, которому нужно сократить расходы на одежду. Путей три: покупать дешёвое и часто, покупать дорогое и редко или носить то, что есть. Первый дешевле сегодня, второй дешевле через несколько лет, третий ничего не стоит, пока вещи целы.</p>
@@ -231,11 +236,13 @@
           <li>Кто предлагает образ достаточности?</li>
         </ul>
 
+        <div class="endslide">
         <p class="t-body closing">Эти четыре вопроса не ответ, а способ смотреть. Задайте их следующему «достаточно», которое вам предложат: рекламе, книге или чужому шкафу, который назовут разумным.</p>
         <p class="links">
           <a class="btn" href="#z2">К двум случаям</a>
           <a class="btn" href="#z4">К условиям выбора</a>
         </p>
+        </div>
 
         <div class="credits">
           <p class="t-cap"><b>Источники</b></p>
@@ -253,8 +260,10 @@
       </div>
     </section>
 
+    </div></div></div>
+
   </main>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>

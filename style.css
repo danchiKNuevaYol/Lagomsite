@@ -987,3 +987,77 @@ input[type=range] {
   font-variation-settings: "opsz" 24;
   letter-spacing: -.01em;
 }
+
+/* ==========================================================
+   Горизонтальный проход: вертикальная прокрутка двигает
+   страницу вправо (включается скриптом на широких экранах)
+   ========================================================== */
+.h-on .hstick {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+.h-on .htrack {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+}
+
+.h-on .htrack .zone,
+.h-on .htrack .inner {
+  display: contents;
+}
+
+.h-on .htrack .inner > * {
+  flex: 0 0 auto;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0 max(var(--gut), calc((100vw - var(--maxw)) / 2 + var(--gut)));
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-left: 1px solid #000;
+}
+
+.h-on .htrack .inner > *:first-child {
+  border-left: 0;
+}
+
+.h-on .htrack .inner > *:not(.g12) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.h-on .htrack .inner > .g12 {
+  align-content: center;
+}
+
+.h-on .htrack .inner > .g12 .arch .img-slot {
+  max-height: 56vh;
+}
+
+.h-on .htrack .qs,
+.h-on .htrack .links,
+.h-on .htrack .credits {
+  max-width: none;
+}
+
+.h-on .htrack .endslide .closing {
+  max-width: 30em;
+}
+
+.h-on .htrack .details .comment {
+  grid-column: 9 / 13;
+  margin-top: 0;
+  max-width: none;
+  align-self: center;
+}
+
+.h-on .htrack .details .a2 {
+  margin-top: 0;
+}

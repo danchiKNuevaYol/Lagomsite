@@ -223,6 +223,7 @@
     var vh = innerHeight;
 
     drifters.forEach(function (el) {
+      if (hOn && hs.contains(el)) { el.style.transform = ""; return; }
       var speed = parseFloat(el.getAttribute("data-speed")) || 0;
       var r = el.getBoundingClientRect();
       var dy = r.top + r.height / 2 - vh / 2;
@@ -246,6 +247,7 @@
   });
 
   function updateSlide() {
+    if (hOn) { return; }
     var vh = innerHeight;
     var shift = Math.min(innerWidth * 0.3, 420);
 
@@ -257,6 +259,59 @@
       el.style.transform = t >= 1 ? "" : "translate3d(" + ((1 - t) * shift).toFixed(1) + "px,0,0)";
     });
   }
+
+  /* ==========================================================
+     7c. Горизонтальный проход после монеты
+     ========================================================== */
+  var hs = $("#hs");
+  var ht = $("#ht");
+  var hOn = false;
+
+  function setupH() {
+    var want = !RM && innerWidth > 700 && innerHeight >= 520;
+
+    if (want !== hOn) {
+      hOn = want;
+      document.documentElement.classList.toggle("h-on", hOn);
+
+      if (!hOn) {
+        hs.style.height = "";
+        ht.style.transform = "";
+      } else {
+        sliders.forEach(function (el) { el.style.opacity = ""; el.style.transform = ""; });
+      }
+    }
+
+    if (hOn) {
+      hs.style.height = (ht.offsetWidth - innerWidth + innerHeight) + "px";
+    }
+  }
+
+  function updateH(S) {
+    if (!hOn) { return; }
+    var top = hs.getBoundingClientRect().top + S;
+    var span = ht.offsetWidth - innerWidth;
+    var s = clamp(S - top, 0, span);
+    ht.style.transform = "translate3d(" + (-s).toFixed(1) + "px,0,0)";
+  }
+
+  // Ссылки внутри горизонтального прохода: переводим в вертикальную позицию
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href").slice(1);
+      var target = document.getElementById(id);
+
+      if (!hOn || !target || !hs.contains(target)) { return; }
+
+      e.preventDefault();
+      var first = target.querySelector(".inner > *") || target;
+      var left = first.offsetLeft;
+      var node = first;
+      // offsetLeft относительно ближайшего позиционированного предка; считаем от дорожки
+      left = first.getBoundingClientRect().left - ht.getBoundingClientRect().left;
+      scrollTo({ top: hs.getBoundingClientRect().top + scrollY + left, behavior: "auto" });
+    });
+  });
 
   /* ==========================================================
      8. Главный цикл
@@ -280,6 +335,7 @@
     safe(updateDisc, S);
     safe(updateDrift, S);
     safe(updateSlide, S);
+    safe(updateH, S);
   }
 
   function request() {
@@ -290,6 +346,7 @@
   }
 
   function relayout() {
+    setupH();
     recalc();
     request();
   }
@@ -409,6 +466,7 @@
   });
 
   /* ---------- старт ---------- */
+  setupH();
   recalc();
   frame();
 })();
