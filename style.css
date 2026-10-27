@@ -118,7 +118,6 @@ dd.tx {
   color: #000;
   /* difference: на тёмном — белый диск, на белом — чёрный */
   mix-blend-mode: difference;
-  transition: opacity .35s;
   will-change: transform;
 }
 
@@ -202,13 +201,6 @@ dd.tx {
   right: var(--gut);
   top: 47%;
   transform: translateY(-52%);
-}
-
-.a-title {
-  position: absolute;
-  right: 8vw;
-  top: 54vh;
-  --d: clamp(120px, 17vw, 270px);
 }
 
 /* Шум: объёмная сцена */
@@ -302,12 +294,6 @@ dd.tx {
     top: 40%;
     font-size: 15vw;
   }
-
-  .a-title {
-    right: 6vw;
-    top: 11vh;
-    --d: 112px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -357,8 +343,6 @@ dd.tx {
     visibility: visible;
     min-height: 60vh;
   }
-
-  .a-title { display: none; }
 
   /* вместо летающей монеты: неподвижная на пустом месте */
   .slot::after {
@@ -936,8 +920,6 @@ input[type=range] {
   .play {
     row-gap: 48px;
   }
-
-  .a-title { right: 6vw; top: 14vh; }
 }
 
 /* ==========================================================
