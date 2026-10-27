@@ -478,7 +478,6 @@ body {
 .side {
   grid-column: 1 / 5;
   padding-top: 14px;
-  border-top: 1px solid var(--ink);
 }
 
 .side h3 {
@@ -516,10 +515,6 @@ body {
 .pull.tx[data-label]::before {
   font-style: normal;
   letter-spacing: 0;
-}
-
-.entry.theory .side {
-  border-top-color: transparent;
 }
 
 .entry.theory .side .meta {
@@ -652,7 +647,6 @@ body {
 
 .set {
   padding-top: 14px;
-  border-top: 1px solid var(--ink);
 }
 
 .count {
@@ -731,12 +725,10 @@ body {
 .out-col {
   grid-column: 8 / 13;
   padding-top: 14px;
-  border-top: 1px solid var(--ink);
 }
 
 .side-rule {
   padding-top: 14px;
-  border-top: 1px solid var(--ink);
 }
 
 .why {
@@ -815,7 +807,6 @@ input[type=range] {
 .value {
   margin-top: 1.6rem;
   padding-top: .8rem;
-  border-top: 1px solid var(--ink);
   font-weight: 500;
 }
 
@@ -852,13 +843,11 @@ input[type=range] {
 
 .qs li {
   padding: 14px 0 18px;
-  border-top: 1px solid var(--ink);
   font: 800 clamp(24px, 4vw, 56px) / 1 var(--head);
   letter-spacing: -.035em;
 }
 
 .qs li:last-child {
-  border-bottom: 1px solid var(--ink);
 }
 
 .links {
