@@ -1141,3 +1141,11 @@ input[type=range] {
   position: relative;
   z-index: 1;
 }
+
+/* Перевод под цитатой */
+.tr {
+  margin-top: 1rem;
+  padding-left: clamp(16px, 2vw, 32px);
+  max-width: 46em;
+  opacity: .75;
+}
