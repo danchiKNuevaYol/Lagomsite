@@ -389,8 +389,6 @@ dd.tx {
   margin: 0;
   font: italic 300 clamp(28px, 3.6vw, 56px) / 1.16 var(--head);
   letter-spacing: -.02em;
-  border-left: 2px solid #000;
-  padding-left: clamp(16px, 2vw, 32px);
 }
 
 .pull.tx[data-label]::before {
@@ -519,7 +517,6 @@ dd.tx {
 .theory .cite {
   grid-column: 1 / 8;
   margin-top: 1.4rem;
-  padding-left: clamp(16px, 2vw, 32px);
 }
 
 .details {
@@ -1153,7 +1150,6 @@ input[type=range] {
 .src-tr {
   max-width: 46em;
   margin-top: 1rem;
-  padding-left: clamp(16px, 2vw, 32px);
   font-size: 14px;
   opacity: .8;
 }
