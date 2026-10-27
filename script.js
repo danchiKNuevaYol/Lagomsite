@@ -247,25 +247,6 @@
   }
 
   /* ==========================================================
-     7c. Шапка листа: подсвечиваем раздел, в котором читатель
-     ========================================================== */
-  var navLinks = $$(".bar ul a[href^='#']");
-  var navZones = navLinks.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
-
-  function updateNav() {
-    var cur = -1;
-
-    navZones.forEach(function (z, i) {
-      if (z && z.getBoundingClientRect().top <= innerHeight * 0.4) { cur = i; }
-    });
-
-    navLinks.forEach(function (a, i) {
-      if (i === cur) { a.setAttribute("aria-current", "true"); }
-      else { a.removeAttribute("aria-current"); }
-    });
-  }
-
-  /* ==========================================================
      8. Главный цикл
      ========================================================== */
   var ticking = false;
@@ -280,7 +261,6 @@
 
     // каждый эффект защищён отдельно: сбой одного не останавливает остальные
     safe(updateProgress, S);
-    safe(updateNav, S);
 
     if (RM) { return; }
 

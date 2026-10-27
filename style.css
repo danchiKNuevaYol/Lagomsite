@@ -430,16 +430,16 @@ dd.tx {
   --photo-bg: #d8d3c6;
   --pad: clamp(20px, 5.5vw, 76px);
   --col: clamp(14px, 2vw, 28px);
-  --bar: 56px;
+  --side: max(var(--pad), calc((100vw - 1180px) / 2 + var(--pad)));
   --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .08 0 0 0 0 .07 0 0 0 0 .06 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
 html {
-  scroll-padding-top: calc(var(--bar) + 16px);
+  scroll-padding-top: 24px;
 }
 
 body {
-  background: var(--outer);
+  background: var(--sheet);
 }
 
 :focus-visible {
@@ -448,75 +448,19 @@ body {
 }
 
 .outer {
-  padding: 0 clamp(0px, 4vw, 64px);
+  background: var(--grain), var(--sheet);
 }
 
 .sheet {
   position: relative;
-  max-width: 1180px;
-  margin: 0 auto;
   background: var(--grain), var(--sheet);
   color: var(--ink);
   overflow-x: clip;
 }
 
-/* ---------- Шапка листа ---------- */
-.bar {
-  position: sticky;
-  top: 0;
-  z-index: 15;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  height: var(--bar);
-  padding: 0 var(--pad);
-  background: var(--grain), var(--sheet);
-  border-bottom: 1px solid var(--ink);
-}
-
-.brand {
-  flex: none;
-  font: 800 20px / 1 var(--head);
-  letter-spacing: -.03em;
-  color: inherit;
-  text-decoration: none;
-}
-
-.bar ul {
-  display: flex;
-  gap: clamp(14px, 2vw, 30px);
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.bar ul::-webkit-scrollbar {
-  display: none;
-}
-
-.bar li a {
-  display: block;
-  padding: 8px 0 6px;
-  font: 500 13px / 1 var(--mono);
-  white-space: nowrap;
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: border-color .25s;
-}
-
-.bar li a:hover,
-.bar li a[aria-current] {
-  border-bottom-color: var(--ink);
-}
-
 /* ---------- Раздел, сетка ---------- */
 .zone {
-  padding: clamp(72px, 11vw, 150px) var(--pad) 0;
+  padding: clamp(72px, 11vw, 150px) var(--side) 0;
 }
 
 .zone.last {
@@ -656,13 +600,13 @@ body {
   color: var(--mute);
 }
 
-.bleed-l  { margin-left: calc(var(--pad) * -1); }
-.bleed-r  { margin-right: calc(var(--pad) * -1); }
-.bleed-lr { margin: clamp(40px, 6vw, 88px) calc(var(--pad) * -1) 0; }
+.bleed-l  { margin-left: calc(var(--side) * -1); }
+.bleed-r  { margin-right: calc(var(--side) * -1); }
+.bleed-lr { margin: clamp(40px, 6vw, 88px) calc(var(--side) * -1) 0; }
 
 .bleed-l figcaption,
 .bleed-lr figcaption {
-  padding-left: var(--pad);
+  padding-left: var(--side);
 }
 
 /* ---------- Фото + текст ---------- */
@@ -985,9 +929,6 @@ input[type=range] {
    Узкие экраны
    ========================================================== */
 @media (max-width: 760px) {
-  .outer { padding: 0; }
-  .brand { display: none; }
-
   .g > *,
   .entry > *,
   .spread > *,
@@ -1031,22 +972,22 @@ input[type=range] {
 
   .hrow .photo,
   .spread .photo {
-    margin-left: calc(var(--pad) * -1);
-    margin-right: calc(var(--pad) * -1);
+    margin-left: calc(var(--side) * -1);
+    margin-right: calc(var(--side) * -1);
   }
 
   .pair .photo:first-child {
-    margin-left: calc(var(--pad) * -1);
+    margin-left: calc(var(--side) * -1);
   }
 
   .hrow .photo figcaption,
   .spread .photo figcaption,
   .pair .photo:first-child figcaption {
-    padding-left: var(--pad);
+    padding-left: var(--side);
   }
 
   .pair .photo:last-child {
-    margin-right: calc(var(--pad) * -1);
+    margin-right: calc(var(--side) * -1);
   }
 
   .play {
