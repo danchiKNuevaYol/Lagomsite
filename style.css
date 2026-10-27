@@ -1170,28 +1170,10 @@ input[type=range] {
   isolation: isolate;
 }
 
-/* растровый круг, как в печатной рекламе */
 .zone.paper::before {
-  content: "";
-  position: absolute;
-  right: -8vw;
-  top: -6vw;
-  width: min(46vw, 640px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  z-index: -1;
-  background: radial-gradient(circle, var(--ink) 1.3px, transparent 1.9px) 0 0 / 10px 10px;
-  -webkit-mask-image: radial-gradient(circle at 35% 62%, #000 0, transparent 70%);
-  mask-image: radial-gradient(circle at 35% 62%, #000 0, transparent 70%);
-  opacity: .55;
+  display: none;
 }
 
-#z2.paper::before {
-  right: auto;
-  left: -10vw;
-  top: auto;
-  bottom: -6vw;
-}
 
 /* каждый источник это вырезка из газеты или журнала */
 .src {
@@ -1286,15 +1268,159 @@ input[type=range] {
     transform: none;
   }
 
-  .zone.paper::before {
-    width: 70vw;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .src,
   .src:nth-child(even),
   .paper .author-note {
+    transform: none;
+  }
+}
+
+/* ==========================================================
+   Дальше тот же язык: бумага, вырезки, скотч, машинка
+   ========================================================== */
+.set,
+.theory .pull,
+.comment,
+.ctl-col,
+.out-col,
+.prose p,
+.closing,
+.qs,
+.credits ol,
+.figwrap {
+  position: relative;
+  background: var(--clip);
+  border: 1.5px dashed var(--ink);
+  box-shadow: 0 20px 32px -24px rgba(21, 19, 15, .55);
+  padding: clamp(20px, 2.6vw, 38px);
+}
+
+.set::after,
+.theory .pull::after,
+.comment::after,
+.ctl-col::after,
+.prose p::after,
+.closing::after,
+.qs::after {
+  content: "";
+  position: absolute;
+  right: clamp(18px, 5%, 60px);
+  top: -13px;
+  width: 84px;
+  height: 24px;
+  background: rgba(226, 205, 140, .62);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
+  transform: rotate(3deg);
+  pointer-events: none;
+}
+
+.theory .pull::before {
+  display: none;
+}
+
+.set {
+  border-top: 1.5px dashed var(--ink);
+}
+
+.set:nth-of-type(1) { transform: rotate(-.6deg); }
+.set:nth-of-type(2) { transform: rotate(.5deg); }
+
+/* фото в рамке, приклеенные скотчем */
+.arch {
+  position: relative;
+  padding: 14px 14px 12px;
+  background: #fffdf7;
+  box-shadow: 0 20px 30px -22px rgba(21, 19, 15, .6);
+}
+
+.arch.a1 { transform: rotate(-1.2deg); }
+.arch.a2 { transform: rotate(1deg); }
+
+.arch::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -13px;
+  width: 80px;
+  height: 24px;
+  margin-left: -40px;
+  background: rgba(226, 205, 140, .62);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
+  transform: rotate(-2deg);
+}
+
+/* ценник */
+.figwrap {
+  display: inline-block;
+  align-self: center;
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  padding: clamp(20px, 3vw, 44px) clamp(28px, 4vw, 64px) clamp(20px, 3vw, 44px) clamp(56px, 7vw, 104px);
+  transform: rotate(-1.5deg);
+}
+
+.figwrap::before {
+  content: "";
+  position: absolute;
+  left: clamp(16px, 2.4vw, 34px);
+  top: 50%;
+  width: clamp(14px, 1.6vw, 22px);
+  aspect-ratio: 1;
+  margin-top: calc(clamp(14px, 1.6vw, 22px) / -2);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.figwrap .fig {
+  font-size: clamp(44px, 9vw, 150px);
+}
+
+.qs {
+  text-align: left;
+  max-width: 34em;
+  margin-inline: auto;
+}
+
+.qs li {
+  font-size: clamp(20px, 2.4vw, 34px);
+}
+
+.credits ol {
+  max-width: 52em;
+  margin-inline: auto;
+  text-align: left;
+}
+
+.h-on .htrack .theory .pull {
+  padding: clamp(22px, 3vw, 44px);
+}
+
+.h-on .htrack .prose p,
+.h-on .htrack .closing {
+  max-width: 34em;
+  text-align: left;
+}
+
+@media (max-width: 700px) {
+  .set:nth-of-type(1),
+  .set:nth-of-type(2),
+  .arch.a1,
+  .arch.a2,
+  .figwrap {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .set:nth-of-type(1),
+  .set:nth-of-type(2),
+  .arch.a1,
+  .arch.a2,
+  .figwrap {
     transform: none;
   }
 }

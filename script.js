@@ -182,6 +182,7 @@
   }
 
   function updateDisc(S) {
+    disc.style.opacity = (stage.classList.contains("cut") && hero.getBoundingClientRect().bottom > innerHeight * 0.15) ? "0" : "1";
     var i = 0;
     while (i < anchors.length - 1 && S >= anchors[i + 1].s) { i++; }
 
