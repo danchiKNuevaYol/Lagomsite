@@ -966,3 +966,10 @@ input[type=range] {
   font: 500 clamp(20px, 2vw, 28px) / 1.15 var(--head);
   letter-spacing: -.02em;
 }
+
+/* Телефоны: слово «lagom» крупнее, чтобы удар читался с первого взгляда */
+@media (max-width: 760px) {
+  .cutword {
+    font-size: clamp(64px, 25vw, 170px);
+  }
+}
