@@ -1149,3 +1149,11 @@ input[type=range] {
   max-width: 46em;
   opacity: .75;
 }
+
+.src-tr {
+  max-width: 46em;
+  margin-top: 1rem;
+  padding-left: clamp(16px, 2vw, 32px);
+  font-size: 14px;
+  opacity: .8;
+}
