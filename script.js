@@ -130,56 +130,85 @@
   }
 
   /* ==========================================================
-     5. Диск «7»: один знак едет по всей странице
+     5. Монета «7»: на титуле, потом скрыта, после «lagom» вылетает
+        и летит вдоль правого поля (текста не касается),
+        вращаясь, и садится на пустое место во втором наборе
      ========================================================== */
   var disc = $("#disc");
-  var anchors = $$("[data-disc]").map(function (el) { return { el: el, s: 0 }; });
+  var titleA = $(".a-title");
+  var slot = $("#slot");
+  var zone1 = $("#z1");
+  var flight = { s0: 0, sx: 1, slotAbs: 0, side: 24 };
+
+  // положение элемента от верха страницы, не зависит от transform
+  function absTop(el) {
+    var y = 0;
+    while (el) { y += el.offsetTop; el = el.offsetParent; }
+    return y;
+  }
 
   function recalc() {
     var vh = innerHeight;
-    var heroH = hero.offsetHeight - vh;
 
-    anchors.forEach(function (a) {
-      if (hero.contains(a.el)) {
-        a.s = parseFloat(a.el.getAttribute("data-at")) * heroH;
-      } else {
-        var r = a.el.getBoundingClientRect();
-        a.s = r.top + scrollY + r.height / 2 - vh * 0.5;
-      }
-    });
+    flight.s0 = Math.max(1, hero.offsetHeight - vh);
+    flight.side = parseFloat(getComputedStyle(zone1).paddingLeft) || 24;
 
-    anchors.sort(function (a, b) { return a.s - b.s; });
-
-    for (var i = 1; i < anchors.length; i++) {
-      if (anchors[i].s <= anchors[i - 1].s) { anchors[i].s = anchors[i - 1].s + 1; }
+    if (slot) {
+      flight.slotAbs = absTop(slot) + slot.offsetHeight / 2;
+      // монета садится, когда пустое место доходит до 62% высоты экрана
+      flight.sx = Math.max(flight.s0 + 1, flight.slotAbs - vh * 0.62);
     }
   }
 
-  function updateDisc(S) {
-    // монета не видна, пока идёт шум и слово «lagom»; на титуле и после первого экрана она на месте
-    var heroSpan = hero.offsetHeight - innerHeight;
-    var inNoise = S / heroSpan > 0.1 || stage.classList.contains("cut");
-    disc.style.opacity = (inNoise && hero.getBoundingClientRect().bottom > innerHeight * 0.15) ? "0" : "1";
-    var i = 0;
-    while (i < anchors.length - 1 && S >= anchors[i + 1].s) { i++; }
-
-    var a = anchors[i];
-    var b = anchors[Math.min(i + 1, anchors.length - 1)];
-    var t = a === b ? 0 : clamp((S - a.s) / (b.s - a.s), 0, 1);
-
-    // диск задерживается на якоре, потом перелетает к следующему
-    var w = t < 0.2 ? 0 : t > 0.8 ? 1 : smooth((t - 0.2) / 0.6);
-
-    var ra = a.el.getBoundingClientRect();
-    var rb = b.el.getBoundingClientRect();
-    var x = lerp(ra.left + ra.width / 2, rb.left + rb.width / 2, w);
-    var y = lerp(ra.top + ra.height / 2, rb.top + rb.height / 2, w);
-    var d = lerp(ra.width, rb.width, w);
-
-    // монета переворачивается в полёте: полный оборот, цифра не зеркалится
+  function place(x, y, d, deg, opacity) {
+    disc.style.opacity = opacity.toFixed(3);
     disc.style.transform =
       "translate3d(" + (x - 100).toFixed(1) + "px," + (y - 100).toFixed(1) + "px,0) " +
-      "scale(" + (d / 200).toFixed(4) + ") perspective(900px) rotateY(" + (w * 360).toFixed(1) + "deg)";
+      "scale(" + (d / 200).toFixed(4) + ") perspective(900px) rotateY(" + deg.toFixed(1) + "deg)";
+  }
+
+  function updateDisc(S) {
+    var vh = innerHeight;
+    var vw = document.documentElement.clientWidth;
+
+    // 1. титул: монета на своём месте
+    if (S <= flight.s0 * 0.1) {
+      var ra = titleA.getBoundingClientRect();
+      place(ra.left + ra.width / 2, ra.top + ra.height / 2, ra.width, 0, 1);
+      return;
+    }
+
+    // 2. шум и слово «lagom»: монеты нет
+    if (S < flight.s0 || !slot) {
+      disc.style.opacity = "0";
+      return;
+    }
+
+    // 3. полёт. p: 0 в начале полёта, 1 когда монета села
+    var p = clamp((S - flight.s0) / (flight.sx - flight.s0), 0, 1);
+    var side = flight.side;
+    var dFly = clamp(side * 0.75, 12, 100);
+    var rs = slot.getBoundingClientRect();
+    var xs = rs.left + rs.width / 2;
+    var ys = rs.top + rs.height / 2;
+
+    // вдоль правого поля монета медленно сползает вниз, дальше ждёт, пока к ней поднимется место
+    var yFree = vh * (0.28 + 0.34 * smooth(p));
+    var y = Math.min(yFree, ys);
+
+    // заход в пустое место: только когда оно почти на уровне монеты (ряд над ним пуст)
+    var gap = Math.max(0, ys - yFree);
+    var b = smooth(clamp(1 - gap / 200, 0, 1));
+    var gx = clamp(vw - side / 2, dFly / 2 + 4, vw - dFly / 2 - 4);
+
+    var x = lerp(gx, xs, b);
+    var d = lerp(dFly, rs.width, b);
+
+    // 8 оборотов за полёт, на посадке цифра смотрит прямо
+    var deg = 2880 * p;
+    var o = smooth(clamp((S - flight.s0) / (vh * 0.2), 0, 1));
+
+    place(x, y, d, deg, o);
   }
 
   /* ==========================================================
@@ -217,7 +246,7 @@
          число в наборе считает до семи, снимки чуть смещаются внутри рамки
      ========================================================== */
   var RVS = $$("[data-rv]").map(function (el) {
-    return { el: el, kind: el.getAttribute("data-rv"), img: $("img", el), count: $(".count", el) };
+    return { el: el, kind: el.getAttribute("data-rv"), img: $("img", el), count: $(".count:not(.slot)", el) };
   });
 
   function updateRv() {

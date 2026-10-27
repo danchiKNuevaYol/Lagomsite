@@ -281,14 +281,6 @@ dd.tx {
   100% { transform: none; }
 }
 
-.a-noise {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  --d: 52px;
-  transform: translate(-50%, -50%);
-}
-
 .a-cut {
   position: absolute;
   left: 50%;
@@ -366,13 +358,10 @@ dd.tx {
     min-height: 60vh;
   }
 
-  .a-title,
-  .a-noise { display: none; }
+  .a-title { display: none; }
 
-  /* вместо летающего диска: неподвижный знак на месте якоря */
-  .mid { position: relative; }
-
-  .mid::after {
+  /* вместо летающей монеты: неподвижная на пустом месте */
+  .slot::after {
     content: "7";
     display: grid;
     place-items: center;
@@ -381,7 +370,7 @@ dd.tx {
     border-radius: 50%;
     background: var(--ink);
     color: var(--sheet);
-    font: 500 calc(var(--d) * .54) / 1 var(--head);
+    font: 500 .5em / 1 var(--head);
   }
 }
 /* ==========================================================
@@ -636,14 +625,17 @@ body {
 /* ---------- Две меры ---------- */
 .duo {
   display: grid;
-  grid-template-columns: 1fr var(--d) 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--col);
   align-items: start;
-  margin-top: clamp(56px, 8vw, 120px);
+  margin-top: clamp(120px, 15vw, 210px);
 }
 
-.mid {
-  align-self: center;
+/* пустое место под монету: размер цифры 7 */
+.count.slot {
+  width: .78em;
+  height: .78em;
+  margin: .04em 0 .1em;
 }
 
 .set {
@@ -919,10 +911,6 @@ input[type=range] {
 
   .duo {
     grid-template-columns: 1fr;
-  }
-
-  .mid {
-    margin: 0 auto;
   }
 
   .hrow .photo,
