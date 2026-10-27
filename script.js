@@ -404,7 +404,7 @@
 
   function syncFinding() {
     var open = $$(".open[aria-expanded='true']").length;
-    why.classList.toggle("shown", open === 2);
+    if (why) { why.classList.toggle("shown", open === 2); }
   }
 
   $$(".open").forEach(function (btn) {
