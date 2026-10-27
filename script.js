@@ -98,7 +98,7 @@
       el.style.left = (3 + r() * 66) + "%";
       el.style.top = (6 + r() * 84) + "%";
       el.style.fontSize = size.toFixed(0) + "px";
-      el.style.fontFamily = big ? "var(--serif)" : "var(--sans)";
+      el.style.fontFamily = big ? "var(--head)" : "var(--mono)";
       el.style.fontWeight = big ? "300" : "500";
       el.style.setProperty("--z", z.toFixed(0) + "px");
       el.style.setProperty("--r0", ((r() - 0.5) * 2 * (big ? 7 : 9)).toFixed(1) + "deg");
