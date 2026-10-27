@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Golos+Text:wght@400;500&display=swap">
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
 </head>
 <body>
 
@@ -18,13 +18,6 @@
     Подпись-метка (data-label) пропадёт сама, когда уберёте атрибут.
     Цифра 7 (диск) переезжает между блоками .anchor [data-disc].
   -->
-
-  <!-- Слои спуска: цвет глубины и эскалатор -->
-  <div class="depth" id="depth" aria-hidden="true"></div>
-  <div class="shaft" id="shaft" aria-hidden="true"><div class="rock" id="rock"></div><div class="stairs" id="stairs"></div><div class="lamps" id="lamps"></div><div class="vignette"></div></div>
-  <div class="landing" id="landing" aria-hidden="true"></div>
-  <div class="vault" id="vault" aria-hidden="true"></div>
-  <div class="rails" id="rails" aria-hidden="true"></div>
 
   <!-- Тонкая полоса прогресса -->
   <div class="progress" aria-hidden="true"><i id="pg"></i></div>
@@ -58,7 +51,7 @@
   <main>
 
     <!-- 2. Откуда взялось «Достаточно» -->
-    <section class="zone dark" id="z1" data-name="Откуда «Достаточно»">
+    <section class="zone" id="z1" data-name="Откуда «Достаточно»">
       <div class="inner">
         <h2 class="t-display drift" data-speed="-.05">Откуда<br>взялось<br>«Достаточно»</h2>
 
@@ -106,7 +99,7 @@
     </section>
 
     <!-- 3. Кто определяет меру? -->
-    <section class="zone dark" id="z2" data-name="Кто определяет меру?">
+    <section class="zone" id="z2" data-name="Кто определяет меру?">
       <div class="inner">
         <div class="g12 head">
           <h2 class="t-title">Кто определяет<br>меру?</h2>
@@ -147,14 +140,11 @@
       </div>
     </section>
 
-    <!-- Выход с эскалатора: ступени замедляются, пещера сменяется платформой -->
-    <div class="arrive" id="arrive" aria-hidden="true"></div>
-
     <!-- После монеты: вертикальная прокрутка двигает страницу вправо -->
     <div class="hscroll" id="hs"><div class="hstick"><div class="htrack" id="ht">
 
     <!-- 4. Отказ как знак -->
-    <section class="zone light" id="z3" data-name="Отказ как знак">
+    <section class="zone" id="z3" data-name="Отказ как знак">
       <div class="inner">
         <h2 class="t-display drift" data-speed=".05">Отказ<br>как знак</h2>
 
@@ -183,7 +173,7 @@
     </section>
 
     <!-- 5. Интерактив: число остаётся, условия меняются -->
-    <section class="zone light" id="z4" data-name="Гардероб">
+    <section class="zone" id="z4" data-name="Гардероб">
       <div class="inner">
         <div class="g12 play">
           <div class="ctl-col">
@@ -213,7 +203,7 @@
     </section>
 
     <!-- 6. Когда умеренность вправду экономит -->
-    <section class="zone light" id="z5" data-name="Когда экономит">
+    <section class="zone" id="z5" data-name="Когда экономит">
       <div class="inner">
         <h2 class="t-title">Когда умеренность<br>вправду экономит</h2>
 
@@ -233,7 +223,7 @@
     </section>
 
     <!-- 7. Вопрос из 3 -->
-    <section class="zone light" id="z6" data-name="Вопрос">
+    <section class="zone" id="z6" data-name="Вопрос">
       <div class="inner">
         <div class="finalwrap">
           <h2 class="t-display">Кто<br>определяет<br>меру?</h2>
@@ -274,6 +264,6 @@
 
   </main>
 
-  <script src="script.js?v=15"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>

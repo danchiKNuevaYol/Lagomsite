@@ -125,8 +125,10 @@ dd.tx {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #f8efe6;
-  color: #1b0805;
+  background: #fff;
+  color: #000;
+  /* difference: на тёмном — белый диск, на белом — чёрный */
+  mix-blend-mode: difference;
   will-change: transform;
 }
 
@@ -134,8 +136,7 @@ dd.tx {
   content: "";
   position: absolute;
   inset: -9px;
-  border: 1px solid currentColor;
-  opacity: .8;
+  border: 1px solid #fff;
   border-radius: 50%;
 }
 
@@ -169,14 +170,14 @@ dd.tx {
   top: 0;
   height: 2px;
   z-index: 21;
+  mix-blend-mode: difference;
   pointer-events: none;
 }
 
 .progress i {
   display: block;
   height: 100%;
-  background: #f8efe6;
-  box-shadow: 0 0 0 1px rgba(27, 8, 5, .35);
+  background: #fff;
   transform: scaleX(0);
   transform-origin: 0 50%;
 }
@@ -339,7 +340,7 @@ dd.tx {
 .zone {
   position: relative;
   padding: clamp(88px, 15vh, 180px) var(--gut);
-  background: transparent;
+  background: #fff;
   color: #000;
   border-top: 1px solid #000;
   overflow-x: clip;
@@ -996,7 +997,7 @@ input[type=range] {
   top: 0;
   height: 100vh;
   overflow: hidden;
-  background: transparent;
+  background: #fff;
 }
 
 .h-on .htrack {
@@ -1104,210 +1105,4 @@ input[type=range] {
 .h-on .htrack .qs,
 .h-on .htrack .endslide {
   max-width: none;
-}
-
-/* ==========================================================
-   Спуск в метро: цвет глубины, эскалатор, платформа
-   ========================================================== */
-.depth {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: #fff;
-  pointer-events: none;
-}
-
-.h-on .htrack {
-  position: relative;
-  z-index: 1;
-}
-
-/* ==========================================================
-   Шахта эскалатора: красная пещера и ступени в перспективе
-   ========================================================== */
-.shaft {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-  background: radial-gradient(ellipse 70% 62% at 50% 40%, #e24a2c 0, #b02a1b 28%, #66140e 58%, #230806 100%);
-}
-
-.shaft .rock {
-  position: absolute;
-  inset: -5%;
-  opacity: .8;
-  mix-blend-mode: overlay;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='r' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.011 .016' numOctaves='5' seed='7'/><feDiffuseLighting lighting-color='%23ffb08a' surfaceScale='7'><feDistantLight azimuth='40' elevation='52'/></feDiffuseLighting></filter><rect width='900' height='900' filter='url(%23r)'/></svg>") center / 900px 900px;
-}
-
-.shaft .stairs {
-  position: absolute;
-  left: 50%;
-  bottom: -4vh;
-  width: min(86vw, 1300px);
-  height: 92vh;
-  transform: translateX(-50%) perspective(760px) rotateX(61deg);
-  transform-origin: 50% 100%;
-  background:
-    linear-gradient(90deg, #0d0302 0 7%, #2b0d09 7% 8.5%, transparent 8.5% 91.5%, #2b0d09 91.5% 93%, #0d0302 93% 100%),
-    linear-gradient(90deg, transparent 0 33%, rgba(0, 0, 0, .55) 33% 33.6%, transparent 33.6% 66.4%, rgba(0, 0, 0, .55) 66.4% 67%, transparent 67%),
-    repeating-linear-gradient(0deg, #0b0302 0 5px, #6d2314 5px 20px, #d0603a 20px 24px);
-  background-position: 0 0, 0 0, 0 0;
-  -webkit-mask-image: linear-gradient(to top, #000 52%, transparent 96%);
-  mask-image: linear-gradient(to top, #000 52%, transparent 96%);
-}
-
-.shaft .vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 40%, rgba(10, 2, 1, .55) 100%);
-}
-
-/* тёмные зоны над пещерой: светлый текст */
-.zone.dark {
-  color: #f8efe6;
-  border-top-color: rgba(255, 255, 255, .35);
-}
-
-.zone.dark .pull {
-  border-left-color: #f8efe6;
-}
-
-.zone.dark .set {
-  border-top-color: rgba(255, 255, 255, .6);
-}
-
-.zone.dark .ic {
-  stroke: #f8efe6;
-}
-
-.zone.dark .src-meta a {
-  color: inherit;
-}
-
-.zone.dark .btn {
-  background: #f8efe6;
-  color: #1b0805;
-  border-color: #f8efe6;
-}
-
-.zone.dark .btn:hover,
-.zone.dark .btn:focus-visible {
-  background: transparent;
-  color: #f8efe6;
-}
-
-.zone.dark .tx i {
-  opacity: .22;
-}
-
-/* светлые зоны закрывают шахту: «приехали на платформу» */
-.zone.light {
-  background: #dde5f0;
-}
-
-.h-on .zone.light {
-  background: transparent;
-}
-
-@media (max-width: 700px) {
-  .shaft .stairs {
-    width: 150vw;
-    height: 60vh;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .shaft .stairs {
-    background-position: 0 0, 0 0, 0 0 !important;
-  }
-}
-
-
-.disc.ink {
-  background: #000;
-  color: #fff;
-}
-
-/* ==========================================================
-   Спуск: лампы, выход с эскалатора, платформа
-   ========================================================== */
-.arrive {
-  height: 210vh;
-}
-
-.shaft .rock {
-  top: -900px;
-  bottom: -5%;
-  will-change: transform;
-}
-
-.lamps {
-  position: absolute;
-  inset: 0;
-}
-
-.lamp {
-  position: absolute;
-  background: #ffe6b8;
-  border-radius: 2px;
-  box-shadow: 0 0 16px 4px rgba(255, 214, 150, .4);
-  will-change: transform, opacity;
-}
-
-/* пол платформы: шахматная плитка в перспективе */
-.landing {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  z-index: -1;
-  width: 180vw;
-  height: 62vh;
-  transform: translateX(-50%) perspective(760px) rotateX(64deg);
-  transform-origin: 50% 100%;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  background: conic-gradient(#f4f6fa 25%, #5b6678 0 50%, #f4f6fa 0 75%, #5b6678 0) 0 0 / 150px 150px;
-  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 96%);
-  mask-image: linear-gradient(to top, #000 30%, transparent 96%);
-}
-
-/* свод и рельсы платформы выезжают в конце спуска */
-.vault,
-.rails {
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  pointer-events: none;
-  visibility: hidden;
-  will-change: transform;
-}
-
-.vault {
-  top: 0;
-  height: 13vh;
-  background:
-    radial-gradient(circle at 50% 72%, #ffe9b0 0 5px, rgba(255, 233, 176, .25) 6px 14px, transparent 15px) calc(var(--hx, 0) * -.55px) 0 / 260px 100% repeat-x,
-    #1b2030;
-  clip-path: polygon(0 0, 100% 0, 100% 62%, 96% 86%, 91% 68%, 84% 100%, 77% 74%, 69% 92%, 61% 66%, 53% 96%, 46% 70%, 37% 100%, 29% 76%, 21% 93%, 13% 66%, 6% 88%, 0 70%);
-}
-
-.rails {
-  bottom: 0;
-  height: 11vh;
-  background:
-    repeating-linear-gradient(90deg, #8b93a3 0 4px, transparent 4px 64px) calc(var(--hx, 0) * -1px) 38% / auto 14% repeat-x,
-    linear-gradient(#8b93a3, #8b93a3) 0 24% / 100% 3px no-repeat,
-    linear-gradient(#8b93a3, #8b93a3) 0 56% / 100% 3px no-repeat,
-    #1b2030;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .arrive {
-    display: none;
-  }
 }
