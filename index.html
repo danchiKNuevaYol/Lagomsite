@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Golos+Text:wght@400;500&display=swap">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 
@@ -18,6 +18,10 @@
     Подпись-метка (data-label) пропадёт сама, когда уберёте атрибут.
     Цифра 7 (диск) переезжает между блоками .anchor [data-disc].
   -->
+
+  <!-- Слои спуска: цвет глубины и эскалатор -->
+  <div class="depth" id="depth" aria-hidden="true"></div>
+  <div class="escalator" id="esc" aria-hidden="true"></div>
 
   <!-- Тонкая полоса прогресса -->
   <div class="progress" aria-hidden="true"><i id="pg"></i></div>
@@ -264,6 +268,6 @@
 
   </main>
 
-  <script src="script.js?v=10"></script>
+  <script src="script.js?v=11"></script>
 </body>
 </html>
