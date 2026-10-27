@@ -481,7 +481,7 @@ body {
 /* ---------- Заголовок: крупное слово ---------- */
 .xl {
   margin: 0;
-  font: 800 clamp(38px, 9vw, 128px) / .86 var(--head);
+  font: 800 clamp(32px, 9vw, 128px) / .86 var(--head);
   letter-spacing: -.045em;
   text-wrap: balance;
   will-change: transform;
