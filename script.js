@@ -114,7 +114,6 @@
      4. Первая зона: титул → шум → обрыв
      ========================================================== */
   var beatTitle = $("#beatTitle");
-  var hint = $("#hint");
 
   function updateHero(S) {
     var H = hero.offsetHeight - innerHeight;
@@ -126,8 +125,6 @@
     beatTitle.style.opacity = (1 - smooth(clamp((p - 0.08) / 0.1, 0, 1))).toFixed(3);
     beatTitle.style.transform = "translate3d(0," + (-smooth(clamp(p / 0.2, 0, 1)) * 8).toFixed(2) + "vh,0)";
     scene.style.opacity = cut ? 0 : smooth(clamp((p - 0.13) / 0.06, 0, 1)).toFixed(3);
-
-    hint.style.opacity = p > 0.03 ? 0 : 0.7;
 
     if (!cut) { updateNoise(p); }
   }
