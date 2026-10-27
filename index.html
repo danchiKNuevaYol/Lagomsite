@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Golos+Text:wght@400;500&display=swap">
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=15">
 </head>
 <body>
 
@@ -21,7 +21,10 @@
 
   <!-- Слои спуска: цвет глубины и эскалатор -->
   <div class="depth" id="depth" aria-hidden="true"></div>
-  <div class="shaft" id="shaft" aria-hidden="true"><div class="rock"></div><div class="stairs" id="stairs"></div><div class="vignette"></div></div>
+  <div class="shaft" id="shaft" aria-hidden="true"><div class="rock" id="rock"></div><div class="stairs" id="stairs"></div><div class="lamps" id="lamps"></div><div class="vignette"></div></div>
+  <div class="landing" id="landing" aria-hidden="true"></div>
+  <div class="vault" id="vault" aria-hidden="true"></div>
+  <div class="rails" id="rails" aria-hidden="true"></div>
 
   <!-- Тонкая полоса прогресса -->
   <div class="progress" aria-hidden="true"><i id="pg"></i></div>
@@ -143,6 +146,9 @@
         </div></div>
       </div>
     </section>
+
+    <!-- Выход с эскалатора: ступени замедляются, пещера сменяется платформой -->
+    <div class="arrive" id="arrive" aria-hidden="true"></div>
 
     <!-- После монеты: вертикальная прокрутка двигает страницу вправо -->
     <div class="hscroll" id="hs"><div class="hstick"><div class="htrack" id="ht">
@@ -268,6 +274,6 @@
 
   </main>
 
-  <script src="script.js?v=13"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>

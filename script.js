@@ -316,53 +316,107 @@
   });
 
   /* ==========================================================
-     7d. Спуск: цвет глубины, эскалатор, движение платформы
+     7d. Спуск: лампы над головой, ступени, выход на платформу
      ========================================================== */
   var depthEl = $("#depth");
   var shaftEl = $("#shaft");
   var stairsEl = $("#stairs");
-  var STOPS = [
-    [255, 255, 255],  // у входа
-    [243, 239, 230],  // вестибюль
-    [231, 226, 214],  // эскалатор
-    [221, 229, 240],  // платформа
-    [205, 218, 236]   // глубже
-  ];
+  var rockEl = $("#rock");
+  var lampsEl = $("#lamps");
+  var landEl = $("#landing");
+  var vaultEl = $("#vault");
+  var railsEl = $("#rails");
+  var arriveEl = $("#arrive");
+  var root = document.documentElement;
 
-  function mix(t) {
-    var n = STOPS.length - 1;
-    var f = clamp(t, 0, 1) * n;
-    var i = Math.min(Math.floor(f), n - 1);
-    var u = f - i;
+  var PLAT = [[221, 229, 240], [205, 218, 236]];
+  var NL = 9;
+  var lamps = [];
+
+  (function buildLamps() {
+    for (var i = 0; i < NL; i++) {
+      var trio = ["c", "l", "r"].map(function () {
+        var d = document.createElement("i");
+        d.className = "lamp";
+        lampsEl.appendChild(d);
+        return d;
+      });
+      lamps.push({ c: trio[0], l: trio[1], r: trio[2] });
+    }
+  })();
+
+  function frac(x) { return x - Math.floor(x); }
+
+  function platColor(u) {
     return "rgb(" + [0, 1, 2].map(function (k) {
-      return Math.round(lerp(STOPS[i][k], STOPS[i + 1][k], u));
+      return Math.round(lerp(PLAT[0][k], PLAT[1][k], clamp(u, 0, 1)));
     }).join(",") + ")";
   }
 
   function updateDepthLayers(S) {
-    var z1 = $("#z1");
-    var start = z1.getBoundingClientRect().top + S - innerHeight;
+    var vh = innerHeight;
+    var vw = innerWidth;
+    var start = $("#z1").getBoundingClientRect().top + S - vh;
+    var arrTop = arriveEl.getBoundingClientRect().top + S;
+    var arrH = arriveEl.offsetHeight;
+    var arrStart = arrTop - vh * 0.4;
+    var a = clamp((S - arrStart) / arrH, 0, 1);
     var hsTop = hs.getBoundingClientRect().top + S;
-    var end = hOn ? hsTop + (ht.offsetWidth - innerWidth) : document.documentElement.scrollHeight - innerHeight;
-    var t = clamp((S - start) / Math.max(1, end - start), 0, 1);
+    var span = hOn ? ht.offsetWidth - vw : 0;
 
-    depthEl.style.background = mix(t);
-    hs.style.setProperty("--plat", mix(Math.max(t, 0.62)));
+    // путь по эскалатору: ступени и лампы замедляются и останавливаются у выхода
+    var flow = S < arrStart ? S : arrStart + arrH * 0.3 * (1 - Math.pow(1 - clamp(a / 0.55, 0, 1), 2));
 
-    // шахта эскалатора: ступени бегут на зрителя, пока идёт вертикальный спуск
-    var pastShaft = S > (hOn ? hsTop : $("#z3").getBoundingClientRect().top + S) + 4;
-    var beforeShaft = S < start;
-    shaftEl.style.visibility = (pastShaft || beforeShaft) ? "hidden" : "visible";
+    var inShaft = S >= start && a < 1;
+    shaftEl.style.visibility = inShaft ? "visible" : "hidden";
 
-    if (!pastShaft && !beforeShaft) {
-      var y = (S * 0.9).toFixed(1) + "px";
-      stairsEl.style.backgroundPosition = "0 0, 0 0, 0 " + y;
+    if (inShaft) {
+      shaftEl.style.opacity = (1 - smooth(clamp((a - 0.5) / 0.45, 0, 1))).toFixed(3);
+      stairsEl.style.backgroundPosition = "0 0, 0 0, 0 " + (flow * 0.9).toFixed(1) + "px";
+      stairsEl.style.opacity = (1 - clamp((a - 0.25) / 0.4, 0, 1)).toFixed(3);
+      rockEl.style.transform = "translate3d(0," + ((flow * 0.18) % 900).toFixed(1) + "px,0)";
+
+      // ряды ламп приближаются из точки схода и уходят вверх и в стороны
+      lamps.forEach(function (L, i) {
+        var p = frac(i / NL + flow / 1500);
+        var q = p * p;
+        var o = 0.6 * Math.min(1, p * 5) * (1 - Math.pow(p, 8));
+        var cy = 40 - q * 46;
+        var w = 3 + q * 62;
+        var hgt = 4 + q * 26;
+
+        L.c.style.cssText = "left:" + (50 - w / 2) + "vw;top:" + cy + "vh;width:" + w + "vw;height:" + hgt + "px;opacity:" + o.toFixed(3);
+
+        var sx = 5 + q * 50;
+        var sy = 41 - q * 14;
+        var sw = 5 + q * 30;
+        var sh = 3 + q * 22;
+        L.l.style.cssText = "left:" + (50 - sx) + "vw;top:" + sy + "vh;width:" + sw + "px;height:" + sh + "px;opacity:" + o.toFixed(3);
+        L.r.style.cssText = "left:" + (50 + sx) + "vw;top:" + sy + "vh;width:" + sw + "px;height:" + sh + "px;opacity:" + o.toFixed(3);
+      });
     }
 
-    // платформа и рельсы едут вместе с горизонтальным проходом
-    if (hOn) {
-      var hx = clamp(S - hsTop, 0, ht.offsetWidth - innerWidth);
-      hs.style.setProperty("--hx", hx.toFixed(1));
+    // цвет платформы под пещерой проступает по мере выхода
+    var end = hOn ? hsTop + span : document.documentElement.scrollHeight - vh;
+    depthEl.style.background = platColor((S - arrTop) / Math.max(1, end - arrTop));
+
+    // пол: плитка появляется, когда ступени останавливаются
+    var onLand = a > 0 && hOn;
+    landEl.style.visibility = onLand ? "visible" : "hidden";
+
+    if (onLand) {
+      var hx = clamp(S - hsTop, 0, span);
+      landEl.style.opacity = (smooth(clamp((a - 0.2) / 0.5, 0, 1)) * 0.55).toFixed(3);
+      landEl.style.backgroundPosition = (-hx).toFixed(1) + "px 0";
+      root.style.setProperty("--hx", hx.toFixed(1));
+
+      // свод опускается сверху, рельсы поднимаются снизу
+      var k = smooth(clamp((a - 0.45) / 0.55, 0, 1));
+      vaultEl.style.visibility = railsEl.style.visibility = a > 0.4 ? "visible" : "hidden";
+      vaultEl.style.transform = "translate3d(0," + (-(1 - k) * 100).toFixed(1) + "%,0)";
+      railsEl.style.transform = "translate3d(0," + ((1 - k) * 100).toFixed(1) + "%,0)";
+    } else {
+      vaultEl.style.visibility = railsEl.style.visibility = "hidden";
     }
   }
 

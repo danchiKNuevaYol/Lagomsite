@@ -1117,36 +1117,6 @@ input[type=range] {
   pointer-events: none;
 }
 
-/* платформа: свод пещеры сверху, рельсы снизу (только в горизонтальном проходе) */
-.h-on .hstick::before,
-.h-on .hstick::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.h-on .hstick::before {
-  top: 0;
-  height: 13vh;
-  background:
-    radial-gradient(circle at 50% 72%, #ffe9b0 0 5px, rgba(255, 233, 176, .25) 6px 14px, transparent 15px) calc(var(--hx, 0) * -.55px) 0 / 260px 100% repeat-x,
-    #1b2030;
-  clip-path: polygon(0 0, 100% 0, 100% 62%, 96% 86%, 91% 68%, 84% 100%, 77% 74%, 69% 92%, 61% 66%, 53% 96%, 46% 70%, 37% 100%, 29% 76%, 21% 93%, 13% 66%, 6% 88%, 0 70%);
-}
-
-.h-on .hstick::after {
-  bottom: 0;
-  height: 11vh;
-  background:
-    repeating-linear-gradient(90deg, #8b93a3 0 4px, transparent 4px 64px) calc(var(--hx, 0) * -1px) 38% / auto 14% repeat-x,
-    linear-gradient(#8b93a3, #8b93a3) 0 24% / 100% 3px no-repeat,
-    linear-gradient(#8b93a3, #8b93a3) 0 56% / 100% 3px no-repeat,
-    #1b2030;
-}
-
 .h-on .htrack {
   position: relative;
   z-index: 1;
@@ -1255,11 +1225,89 @@ input[type=range] {
   }
 }
 
-.h-on .hstick {
-  background: var(--plat, #dde5f0);
-}
 
 .disc.ink {
   background: #000;
   color: #fff;
+}
+
+/* ==========================================================
+   Спуск: лампы, выход с эскалатора, платформа
+   ========================================================== */
+.arrive {
+  height: 210vh;
+}
+
+.shaft .rock {
+  top: -900px;
+  bottom: -5%;
+  will-change: transform;
+}
+
+.lamps {
+  position: absolute;
+  inset: 0;
+}
+
+.lamp {
+  position: absolute;
+  background: #ffe6b8;
+  border-radius: 2px;
+  box-shadow: 0 0 16px 4px rgba(255, 214, 150, .4);
+  will-change: transform, opacity;
+}
+
+/* пол платформы: шахматная плитка в перспективе */
+.landing {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: -1;
+  width: 180vw;
+  height: 62vh;
+  transform: translateX(-50%) perspective(760px) rotateX(64deg);
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  background: conic-gradient(#f4f6fa 25%, #5b6678 0 50%, #f4f6fa 0 75%, #5b6678 0) 0 0 / 150px 150px;
+  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 96%);
+  mask-image: linear-gradient(to top, #000 30%, transparent 96%);
+}
+
+/* свод и рельсы платформы выезжают в конце спуска */
+.vault,
+.rails {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  pointer-events: none;
+  visibility: hidden;
+  will-change: transform;
+}
+
+.vault {
+  top: 0;
+  height: 13vh;
+  background:
+    radial-gradient(circle at 50% 72%, #ffe9b0 0 5px, rgba(255, 233, 176, .25) 6px 14px, transparent 15px) calc(var(--hx, 0) * -.55px) 0 / 260px 100% repeat-x,
+    #1b2030;
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 96% 86%, 91% 68%, 84% 100%, 77% 74%, 69% 92%, 61% 66%, 53% 96%, 46% 70%, 37% 100%, 29% 76%, 21% 93%, 13% 66%, 6% 88%, 0 70%);
+}
+
+.rails {
+  bottom: 0;
+  height: 11vh;
+  background:
+    repeating-linear-gradient(90deg, #8b93a3 0 4px, transparent 4px 64px) calc(var(--hx, 0) * -1px) 38% / auto 14% repeat-x,
+    linear-gradient(#8b93a3, #8b93a3) 0 24% / 100% 3px no-repeat,
+    linear-gradient(#8b93a3, #8b93a3) 0 56% / 100% 3px no-repeat,
+    #1b2030;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrive {
+    display: none;
+  }
 }
