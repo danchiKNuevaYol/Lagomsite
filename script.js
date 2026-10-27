@@ -198,6 +198,8 @@
     var y = lerp(ra.top + ra.height / 2, rb.top + rb.height / 2, w);
     var d = lerp(ra.width, rb.width, w);
 
+    disc.classList.toggle("ink", S >= hs.getBoundingClientRect().top + S - innerHeight * 0.3);
+
     // монета переворачивается в полёте: полный оборот, цифра не зеркалится
     disc.style.transform =
       "translate3d(" + (x - 100).toFixed(1) + "px," + (y - 100).toFixed(1) + "px,0) " +
@@ -317,7 +319,8 @@
      7d. Спуск: цвет глубины, эскалатор, движение платформы
      ========================================================== */
   var depthEl = $("#depth");
-  var escEl = $("#esc");
+  var shaftEl = $("#shaft");
+  var stairsEl = $("#stairs");
   var STOPS = [
     [255, 255, 255],  // у входа
     [243, 239, 230],  // вестибюль
@@ -344,12 +347,17 @@
     var t = clamp((S - start) / Math.max(1, end - start), 0, 1);
 
     depthEl.style.background = mix(t);
+    hs.style.setProperty("--plat", mix(Math.max(t, 0.62)));
 
-    // эскалатор виден, пока идёт вертикальный спуск
-    var vertEnd = hOn ? hsTop : end;
-    var o = clamp((S - start) / (innerHeight * 0.6), 0, 1) * (1 - clamp((S - (vertEnd - innerHeight * 0.4)) / (innerHeight * 0.4), 0, 1));
-    escEl.style.opacity = o.toFixed(3);
-    escEl.style.backgroundPosition = "0 " + (-S * 0.55).toFixed(1) + "px, 0 " + (-S * 0.55).toFixed(1) + "px";
+    // шахта эскалатора: ступени бегут на зрителя, пока идёт вертикальный спуск
+    var pastShaft = S > (hOn ? hsTop : $("#z3").getBoundingClientRect().top + S) + 4;
+    var beforeShaft = S < start;
+    shaftEl.style.visibility = (pastShaft || beforeShaft) ? "hidden" : "visible";
+
+    if (!pastShaft && !beforeShaft) {
+      var y = (S * 0.9).toFixed(1) + "px";
+      stairsEl.style.backgroundPosition = "0 0, 0 0, 0 " + y;
+    }
 
     // платформа и рельсы едут вместе с горизонтальным проходом
     if (hOn) {
