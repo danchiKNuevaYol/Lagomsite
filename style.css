@@ -243,16 +243,6 @@ dd.tx {
   display: inline-block;
   animation: bob 6s ease-in-out infinite alternate;
   animation-delay: var(--dl);
-  /* объём: ступенчатая грань вправо-вниз, затем мягкая тень */
-  text-shadow:
-    .018em .018em 0 #b9b9b9,
-    .036em .036em 0 #9a9a9a,
-    .054em .054em 0 #7d7d7d,
-    .072em .072em 0 #626262,
-    .090em .090em 0 #4a4a4a,
-    .108em .108em 0 #363636,
-    .126em .126em 0 #262626,
-    .16em .16em .12em rgba(0, 0, 0, .7);
 }
 
 @keyframes bob {
