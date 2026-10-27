@@ -477,7 +477,8 @@ body {
 
 .side {
   grid-column: 1 / 5;
-  padding-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
 }
 
 .side h3 {
@@ -515,6 +516,10 @@ body {
 .pull.tx[data-label]::before {
   font-style: normal;
   letter-spacing: 0;
+}
+
+.entry.theory .side {
+  border-top-color: transparent;
 }
 
 .entry.theory .side .meta {
