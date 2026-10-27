@@ -314,6 +314,44 @@
   });
 
   /* ==========================================================
+     7d. Спуск: цвет глубины, эскалатор, движение платформы
+     ========================================================== */
+  var depthEl = $("#depth");
+  var STOPS = [
+    [255, 255, 255],  // у входа
+    [243, 239, 230],  // вестибюль
+    [231, 226, 214],  // эскалатор
+    [221, 229, 240],  // платформа
+    [205, 218, 236]   // глубже
+  ];
+
+  function mix(t) {
+    var n = STOPS.length - 1;
+    var f = clamp(t, 0, 1) * n;
+    var i = Math.min(Math.floor(f), n - 1);
+    var u = f - i;
+    return "rgb(" + [0, 1, 2].map(function (k) {
+      return Math.round(lerp(STOPS[i][k], STOPS[i + 1][k], u));
+    }).join(",") + ")";
+  }
+
+  function updateDepthLayers(S) {
+    var z1 = $("#z1");
+    var start = z1.getBoundingClientRect().top + S - innerHeight;
+    var hsTop = hs.getBoundingClientRect().top + S;
+    var end = hOn ? hsTop + (ht.offsetWidth - innerWidth) : document.documentElement.scrollHeight - innerHeight;
+    var t = clamp((S - start) / Math.max(1, end - start), 0, 1);
+
+    depthEl.style.background = mix(t);
+
+    // платформа и рельсы едут вместе с горизонтальным проходом
+    if (hOn) {
+      var hx = clamp(S - hsTop, 0, ht.offsetWidth - innerWidth);
+      hs.style.setProperty("--hx", hx.toFixed(1));
+    }
+  }
+
+  /* ==========================================================
      8. Главный цикл
      ========================================================== */
   var ticking = false;
@@ -336,6 +374,7 @@
     safe(updateDrift, S);
     safe(updateSlide, S);
     safe(updateH, S);
+    safe(updateDepthLayers, S);
   }
 
   function request() {
