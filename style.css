@@ -975,3 +975,23 @@ input[type=range] {
   opacity: 1;
   color: var(--mute);
 }
+
+/* Условия случая: одинаковые вопросы, разные ответы */
+.cond {
+  margin: 0;
+}
+
+.cond > div + div {
+  margin-top: 1rem;
+}
+
+.cond dt {
+  font: 400 12.5px / 1.4 var(--mono);
+  color: var(--mute);
+}
+
+.cond dd {
+  margin: .15rem 0 0;
+  font: 500 clamp(20px, 2vw, 28px) / 1.15 var(--head);
+  letter-spacing: -.02em;
+}

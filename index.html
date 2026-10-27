@@ -7,8 +7,8 @@
 
   <link rel="preload" href="fonts/jost-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/charon-cyrillic-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="fonts.css?v=49">
-  <link rel="stylesheet" href="style.css?v=49">
+  <link rel="stylesheet" href="fonts.css?v=50">
+  <link rel="stylesheet" href="style.css?v=50">
 </head>
 <body>
 
@@ -111,8 +111,13 @@
             <p class="t-cap">вещей · случай 1</p>
             <button class="btn open" type="button" data-target="condA" aria-expanded="false" aria-controls="condA">Открыть условия</button>
             <div class="reveal" id="condA"><div>
-              <p class="t-quote">«Я могу покупать больше, но выбираю семь вещей».</p>
-              <p class="t-cap soft">Модель, не интервью</p>
+              <dl class="cond">
+                <div><dt>Кто решил</dt><dd>Я сам</dd></div>
+                <div><dt>Что, если вещь износится</dt><dd>Заменю</dd></div>
+                <div><dt>Что стоит замена</dt><dd>Заметной траты нет</dd></div>
+                <div><dt>Можно ли пересмотреть число</dt><dd>Да, когда захочу</dd></div>
+              </dl>
+              <p class="t-cap soft">Условный пример, не интервью</p>
             </div></div>
           </section>
 
@@ -123,8 +128,13 @@
             <p class="t-cap">вещей · случай 2</p>
             <button class="btn open" type="button" data-target="condB" aria-expanded="false" aria-controls="condB">Открыть условия</button>
             <div class="reveal" id="condB"><div>
-              <p class="t-quote">«Я хотел бы заменить часть вещей, но сейчас не могу».</p>
-              <p class="t-cap soft">Модель, не интервью</p>
+              <dl class="cond">
+                <div><dt>Кто решил</dt><dd>Обстоятельства</dd></div>
+                <div><dt>Что, если вещь износится</dt><dd>Заменить нечем</dd></div>
+                <div><dt>Что стоит замена</dt><dd>Большая часть бюджета</dd></div>
+                <div><dt>Можно ли пересмотреть число</dt><dd>Нет, пока не изменится доход</dd></div>
+              </dl>
+              <p class="t-cap soft">Условный пример, не интервью</p>
             </div></div>
           </section>
         </div>
@@ -246,6 +256,6 @@
     </div>
   </main>
 
-  <script src="script.js?v=49"></script>
+  <script src="script.js?v=50"></script>
 </body>
 </html>
