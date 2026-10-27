@@ -353,6 +353,63 @@
   }
 
   /* ==========================================================
+     7e. Плавные появления: листы поднимаются, выпрямляются, числа считают
+     ========================================================== */
+  var REVEALS = [".lead", ".src", ".author-note", ".set"].reduce(function (list, sel) {
+    $$(sel).forEach(function (el) { list.push({ el: el, rot: 0, count: $(".count", el) }); });
+    return list;
+  }, []);
+
+  function readBaseRotations() {
+    REVEALS.forEach(function (r) {
+      r.el.style.transform = "";
+      var m = /matrix\(([^)]+)\)/.exec(getComputedStyle(r.el).transform);
+      r.rot = 0;
+
+      if (m) {
+        var v = m[1].split(",");
+        r.rot = Math.atan2(parseFloat(v[1]), parseFloat(v[0])) * 180 / Math.PI;
+      }
+    });
+  }
+
+  function updateReveals() {
+    var vh = innerHeight;
+
+    REVEALS.forEach(function (r) {
+      var rect = r.el.getBoundingClientRect();
+      // 0, когда лист только показался снизу, 1, когда он дошёл до 62% высоты экрана
+      var t = smooth(clamp((vh * 0.96 - rect.top) / (vh * 0.34), 0, 1));
+      var rot = r.rot * (1 + (1 - t) * 3) + (1 - t) * (r.rot >= 0 ? 2.2 : -2.2);
+
+      r.el.style.opacity = (0.08 + 0.92 * t).toFixed(3);
+      r.el.style.transform = "translate3d(0," + ((1 - t) * 70).toFixed(1) + "px,0) rotate(" + rot.toFixed(2) + "deg)";
+
+      if (r.count) {
+        r.count.textContent = String(Math.round(7 * clamp(t * 1.3, 0, 1)));
+      }
+    });
+  }
+
+  /* ==========================================================
+     7f. Горизонтальный проход: экраны чуть отъезжают и гаснут по краям
+     ========================================================== */
+  function updateSlides3d() {
+    if (!hOn) { return; }
+
+    var slides = $$("#ht .inner > *");
+    var vw = innerWidth;
+
+    slides.forEach(function (el) {
+      var p = clamp(el.getBoundingClientRect().left / vw, -1, 1);
+      var a = Math.abs(p);
+
+      el.style.opacity = (1 - smooth(clamp((a - 0.25) / 0.75, 0, 1)) * 0.92).toFixed(3);
+      el.style.transform = a < 0.001 ? "" : "scale(" + (1 - a * 0.07).toFixed(4) + ")";
+    });
+  }
+
+  /* ==========================================================
      8. Главный цикл
      ========================================================== */
   var ticking = false;
@@ -375,6 +432,8 @@
     safe(updateDrift, S);
     safe(updateSlide, S);
     safe(updateH, S);
+    safe(updateReveals, S);
+    safe(updateSlides3d, S);
     safe(updateDepthLayers, S);
   }
 
@@ -387,6 +446,7 @@
 
   function relayout() {
     setupH();
+    readBaseRotations();
     recalc();
     request();
   }
@@ -507,6 +567,7 @@
 
   /* ---------- старт ---------- */
   setupH();
+  readBaseRotations();
   recalc();
   frame();
 })();
