@@ -974,13 +974,13 @@ input[type=range] {
   }
 }
 
-/* ---------- Веб-ринг курса: Inter, текст 17px, интервал 1.5, линия сверху и отступ 64px ---------- */
+/* ---------- Веб-ринг курса: Inter, текст 16px, интервал 1.5, линия сверху и отступ 64px ---------- */
 .course-webring {
   margin: 64px var(--side) 0;
   padding: 24px 0 72px;
   border-top: 1px solid var(--ink);
   font-family: Inter, system-ui, sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--ink);
 }
@@ -997,7 +997,6 @@ input[type=range] {
   gap: 12px 24px;
   align-items: start;
 }
-.course-webring--entry .course-webring__nav { grid-template-columns: 1fr 1fr; }
 .course-webring__nav a {
   display: flex;
   align-items: center;
@@ -1015,7 +1014,6 @@ input[type=range] {
 .course-webring__nav a:hover { text-decoration-thickness: 2.5px; }
 .course-webring__nav a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 @media (max-width: 720px) {
-  .course-webring__nav,
-  .course-webring--entry .course-webring__nav { grid-template-columns: 1fr; }
+  .course-webring__nav { grid-template-columns: 1fr; }
   .course-webring__nav a:last-child { justify-content: flex-start; text-align: left; }
 }
